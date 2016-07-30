@@ -1,0 +1,30 @@
+{
+  "name": "chopstick",
+  "version": "0.0.1",
+  "description": "Chopstick the Todo App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/morningfanfan/chopstick.git"
+  },
+  "keywords": [
+    "todo"
+  ],
+  "author": "fanfan & wooya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/morningfanfan/chopstick/issues"
+  },
+  "homepage": "https://github.com/morningfanfan/chopstick#readme",
+  "dependencies": {
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0"
+  },
+  "devDependencies": {
+    "source-map-loader": "^0.1.5",
+    "ts-loader": "^0.8.2"
+  }
+}
