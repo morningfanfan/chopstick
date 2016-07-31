@@ -47,6 +47,8 @@
 	"use strict";
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(35);
+	var Core = __webpack_require__(175);
+	Core.Task;
 	ReactDOM.render(React.createElement("div", null, "It Works"), document.getElementById("content"));
 
 
@@ -21414,6 +21416,30 @@
 	var ReactMount = __webpack_require__(167);
 	
 	module.exports = ReactMount.renderSubtreeIntoContainer;
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	function __export(m) {
+	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+	}
+	__export(__webpack_require__(176));
+
+
+/***/ },
+/* 176 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var Task = (function () {
+	    function Task() {
+	    }
+	    return Task;
+	}());
+	exports.Task = Task;
+
 
 /***/ }
 /******/ ]);
