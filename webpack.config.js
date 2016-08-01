@@ -1,7 +1,7 @@
 var webpack = require("webpack");
 
 module.exports = {
-    entry: "./src/index.tsx",
+    entry: "./createTask/createTask.jsx",
     output: {
         filename: "./dist/bundle.js",
     },
@@ -11,7 +11,7 @@ module.exports = {
 
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js",".jsx"]
     },
 
     module: {
@@ -20,6 +20,9 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 loader: "ts-loader"
+            }, {
+                test: /\.jsx?$/,
+                loader: "babel-loader?presets[]=es2015&presets[]=react"
             }
         ],
 
