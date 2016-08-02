@@ -1,7 +1,7 @@
 var webpack = require("webpack");
 
 module.exports = {
-    entry: "./createTask/createTask.jsx",
+    entry: "./src/createTask/createTask.jsx",
     output: {
         filename: "./dist/bundle.js",
     },
@@ -11,7 +11,7 @@ module.exports = {
 
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js",".jsx"]
+        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js", ".jsx"]
     },
 
     module: {
