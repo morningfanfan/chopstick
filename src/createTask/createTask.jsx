@@ -29,7 +29,7 @@ var Slide_toggle = React.createClass({
                 })
             }
         } else {
-            if (this.state.rightClickDown) {
+            if (this.state.leftClickDown) {
                 this.setState({
                     leftClickDown: false,
                     rightClickDown: true
