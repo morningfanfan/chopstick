@@ -17,7 +17,7 @@ var Slide_toggle = React.createClass({
         this.changeClick(right);
     },
     changeClick: function(n) {
-        n = left ? (!this.state.rightClickDown ?
+            n == left ? (!this.state.rightClickDown ?
             this.setState({
                 leftClickDown: true
             }) :
