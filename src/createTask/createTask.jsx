@@ -46,25 +46,10 @@ var Slide_toggle = React.createClass({
             clickDown: this.state.rightClickDown,
             text: this.props.text.right
         };
-        return ( <
-            div >
-            <
-            Slide_button data = {
-                dataL
-            }
-            onClick = {
-                this.clickLeft
-            }
-            /> <
-            Slide_button data = {
-                dataR
-            }
-            onClick = {
-                this.clickRight
-            }
-            /> < /
-            div >
-        )
+        return (<div>
+                    <Slide_button data={dataL} onClick={this.clickLeft}/> 
+                    <Slide_button data={dataR} onClick={this.clickRight}/> 
+                </div>);
     }
 });
 var Slide_button = React.createClass({
