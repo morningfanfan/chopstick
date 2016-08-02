@@ -11,31 +11,35 @@ var Slide_toggle = React.createClass({
         };
     },
     clickLeft: function() {
-        this.changeClick(left);
+        this.changeClick("left");
     },
     clickRight: function() {
-        this.changeClick(right);
+        this.changeClick("right");
     },
     changeClick: function(n) {
-            n == left ? (!this.state.rightClickDown ?
-            this.setState({
-                leftClickDown: true
-            }) :
-            this.setState({
-                leftClickDown: true,
-                rightClickDown: false
-            })
-        ) : (!this.state.leftClickDown ?
-            this.setState({
-                rightClickDown: true
-            }) :
-            this.setState({
-                leftClickDown: false,
-                rightClickDown: true
-            })
-
-        )
-
+        if (n == "left") {
+            if (this.state.rightClickDown) {
+                this.setState({
+                    leftClickDown: true,
+                    rightClickDown: false
+                })
+            } else {
+                this.setState({
+                    leftClickDown: true
+                })
+            }
+        } else {
+            if (this.state.rightClickDown) {
+                this.setState({
+                    leftClickDown: false,
+                    rightClickDown: true
+                })
+            } else {
+                this.setState({
+                    rightClickDown: true
+                })
+            }
+        }
     },
     render: function() {
         var dataL = {
@@ -52,6 +56,7 @@ var Slide_toggle = React.createClass({
                 </div>);
     }
 });
+
 var Slide_button = React.createClass({
     render: function() {
         var slideStyleClicked = {
