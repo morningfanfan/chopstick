@@ -50,7 +50,7 @@ var Slide_toggle = React.createClass({
             clickDown: this.state.rightClickDown,
             text: this.props.text.right
         };
-        return (<div>
+        return (<div style={{position:'relative'}}>
                     <Slide_button data={dataL} onClick={this.clickLeft}/> 
                     <Slide_button data={dataR} onClick={this.clickRight}/> 
                 </div>);
@@ -59,6 +59,9 @@ var Slide_toggle = React.createClass({
 
 var Slide_button = React.createClass({
     render: function() {
+        var showingStyle = slideStyle;
+        if (this.props.data.clickDown)
+            showingStyle=slideStyleClicked;
         var slideStyleClicked = {
             top: '3px',
             boxShadow: 'inset 0px 1px 0px #2ab7ec, 0px 2px 0px 0px #156785, 0px 5px 3px #999',
@@ -67,7 +70,7 @@ var Slide_button = React.createClass({
             padding: '10px 20px',
             paddingRight: '50px',
             borderRadius: '5px',
-            position: 'relative',
+            float:'left',
             '::before': {
                 backgroundColor: '#2591b4',
                 backgroundImage: 'url(../images/right_arrow.png)',
@@ -92,8 +95,8 @@ var Slide_button = React.createClass({
             // width:'40px',
             padding: '10px 20px',
             paddingRight: '50px',
-            position: 'relative',
             borderRadius: '5px',
+            float:'left',
             boxShadow: 'inset 0px 1px 0px #2ab7ec, 0px 5px 0px 0px #156785, 0px 10px 5px #999',
             backgroundImage: '-webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(44,160,202)), color-stop(1, rgb(62,184,229)) )',
             '::before': {
@@ -112,7 +115,7 @@ var Slide_button = React.createClass({
                 boxShadow: 'inset 0px 1px 0px #052756, 0px 1px 0px #60c9f0',
             }
         };
-        return <div style = {slideStyle}> this.props.data.text </div>
+        return <div style = {showingStyle}> this.props.data.text </div>
     }
 });
 
