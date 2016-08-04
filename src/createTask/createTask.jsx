@@ -59,9 +59,6 @@ var Slide_toggle = React.createClass({
 
 var Slide_button = React.createClass({
     render: function() {
-        var showingStyle = slideStyle;
-        if (this.props.data.clickDown)
-            showingStyle=slideStyleClicked;
         var slideStyleClicked = {
             top: '3px',
             boxShadow: 'inset 0px 1px 0px #2ab7ec, 0px 2px 0px 0px #156785, 0px 5px 3px #999',
@@ -115,6 +112,9 @@ var Slide_button = React.createClass({
                 boxShadow: 'inset 0px 1px 0px #052756, 0px 1px 0px #60c9f0',
             }
         };
+        var showingStyle = slideStyle;
+        if (this.props.data.clickDown)
+            showingStyle = slideStyleClicked;
         return <div style = {showingStyle}> this.props.data.text </div>
     }
 });
