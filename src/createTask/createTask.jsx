@@ -44,15 +44,17 @@ var Slide_toggle = React.createClass({
     render: function() {
         var dataL = {
             clickDown: this.state.leftClickDown,
-            text: this.props.text.left
+            text: this.props.text.left,
+            onClick: this.clickLeft
         };
         var dataR = {
             clickDown: this.state.rightClickDown,
-            text: this.props.text.right
+            text: this.props.text.right,
+            onClick: this.clickRight
         };
         return (<div style={{position:'relative'}}>
-                    <Slide_button data={dataL} onClick={this.clickLeft}/> 
-                    <Slide_button data={dataR} onClick={this.clickRight}/> 
+                    <Slide_button data={dataL}/> 
+                    <Slide_button data={dataR}/> 
                 </div>);
     }
 });
@@ -68,9 +70,10 @@ var Slide_button = React.createClass({
             paddingRight: '50px',
             borderRadius: '5px',
             float:'left',
-            '::before': {
+            fontSize:'13px',
+            ':before': {
                 backgroundColor: '#2591b4',
-                backgroundImage: 'url(../images/right_arrow.png)',
+                backgroundImage: 'url(../img/hi.png)',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center center',
                 content: '',
@@ -88,7 +91,7 @@ var Slide_button = React.createClass({
 
         var slideStyle = {
             backgroundColor: '#3bb3e0',
-            fontSize: '12px',
+            fontSize: '13px',
             // width:'40px',
             padding: '10px 20px',
             paddingRight: '50px',
@@ -96,9 +99,9 @@ var Slide_button = React.createClass({
             float:'left',
             boxShadow: 'inset 0px 1px 0px #2ab7ec, 0px 5px 0px 0px #156785, 0px 10px 5px #999',
             backgroundImage: '-webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(44,160,202)), color-stop(1, rgb(62,184,229)) )',
-            '::before': {
+            ':before': {
                 backgroundColor: '#2591b4',
-                backgroundImage: 'url(../images/right_arrow.png)',
+                backgroundImage: 'url(../img/hi.png)',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center center',
                 content: '',
@@ -115,7 +118,7 @@ var Slide_button = React.createClass({
         var showingStyle = slideStyle;
         if (this.props.data.clickDown)
             showingStyle = slideStyleClicked;
-        return <div style = {showingStyle}> this.props.data.text </div>
+        return <div style = {showingStyle} onClick={this.props.data.onClick}> this.props.data.text </div>
     }
 });
 
