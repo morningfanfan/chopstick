@@ -4,13 +4,13 @@ import $ from "jquery";
 import _ from "lodash";
 
 var text = {
-    left:'TASK',
+    left:'ONETASK',
     right:'PROJECT'
 };
 var Slide_toggle = React.createClass({
     getInitialState: function() {
         return {
-            leftClickDown: false,
+            leftClickDown: true,
             rightClickDown: false,
         };
     },
@@ -50,13 +50,15 @@ var Slide_toggle = React.createClass({
             clickDown: this.state.leftClickDown,
             text: this.props.text.left,
             onClick: this.clickLeft,
-            img:'./img/Documents.png'
+            img:'./src/createTask/img/f.png',
+            imgLeft:'60%'
         };
         var dataR = {
             clickDown: this.state.rightClickDown,
             text: this.props.text.right,
             onClick: this.clickRight,
-            img:'./img/Briefcase.png'
+            img:'./src/createTask/img/d.png',
+            imgLeft:'10%'
         };
         return (<div style={{position:'relative'}}>
                     <Slide_button data={dataL}/> 
@@ -75,11 +77,11 @@ var Slide_button = React.createClass({
             float:'left',
             fontWeight: 'bold',
             letterSpacing: '1px',
-            width:'40%',
-            paddingTop:'10px',
-            paddingBottom:'10px',
+            width:'45%',
+            paddingTop:'17px',
+            paddingBottom:'18px',
+            paddingLeft:'5%',
             textAlign:'center',
-            paddingLeft:'10%'
         };
         var unClick = {
             backgroundColor: '#8a98b8',
@@ -90,12 +92,15 @@ var Slide_button = React.createClass({
             color:'#8a98b8',
         };
         var imgStyle = {
-            src:this.props.data.img,
-            width:'10px',
-            height:'10px'
+            width:'22px',
+            height:'22px',
+            marginRight:'2%',
+            position:'absolute',
+            left:this.props.data.imgLeft,
+            top:'13px'
         };
         var clickStyle = this.props.data.clickDown?clicked:unClick;
-        return <div style={_.extend(slideStyle,clickStyle)} onClick={this.props.data.onClick}><img style={imgStyle}></img> {this.props.data.text} </div>
+        return <div><img src={this.props.data.img}style={imgStyle}></img><div style={_.extend(slideStyle,clickStyle)} onClick={this.props.data.onClick}>{this.props.data.text}</div></div>
     }
 });
 var Content = React.createClass({
@@ -111,27 +116,100 @@ var Container = React.createClass({
     render: function() {
         var wholeStyle = {
             boxShadow:'0 0 20px rgba(132,131,131,0.8)',
-            width:'500px',
+            width:'600px',
             height:'600px',
             margin:'0 auto'
         };
         var smallStyle = {
             width:'100%',
-            height:'50px',
+            height:'85px',
             backgroundColor:'#8a98b8'
         };
         var padding = {
-            paddingTop:'5px'
+            paddingTop:'10px'
         };
         var smallerStyle = {
-            width:'80%',
-            height:'37px',
+            width:'70%',
+            height:'52px',
             margin:'0 auto',
             borderColor:'#4a5374',
-            borderWidth:'1px',
-            borderStyle:'double'
+            borderWidth:'3px',
+            borderStyle:'solid',
+            borderRadius:'4px',
+            boxShadow:'rgb(74, 83, 116) 0px 0px 20px'
         };
-        return (<div style={wholeStyle}><div style={smallStyle}><div style={padding}><div style={smallerStyle}><Slide_toggle text={text}/></div></div></div></div>)
+        return (<div style={wholeStyle}>
+        <div style={smallStyle}>
+        <div style={padding}>
+        <div style={smallerStyle}>
+        <Slide_toggle text={text}/>
+        </div></div></div>
+        <Content/>
+        </div>)
+    }
+});
+var Content = React.createClass({
+    render: function() {
+        var informationOutStyle = {
+            width:'419px',
+            height:'120px',
+            margin:'0 auto',
+            marginTop:'30px',
+            borderColor:'#e2e7ec',
+            borderWidth:'2px',
+            borderStyle:'solid',
+            borderRadius:'4px',
+        };
+        var informationInnerLeftStyle = {
+            width:'20%',
+            height:'100%',
+            borderRightColor:'#e2e7ec',
+            borderRightWidth:'2px',
+            borderRightStyle:'solid',
+            float:'left'
+        };
+        var informationInnerRightStyle = {
+            width:'79.5%',
+            height:'100%',
+            float:'left'
+        };
+        var informationInnerTopStyle = {
+            width:'100%',
+            height:'50%',
+            backgroundColor:'#f1f3f9',
+            borderBottomColor:'#e2e7ec',
+            borderBottomWidth:'2px',
+            borderBottomStyle:'solid',
+            position:'relative'
+        };
+        var informationInnerBottomStyle = {
+            width:'100%',
+            height:'50%',
+            position:'relative'
+        };
+        var imgStyle = {
+            position:'absolute',
+            top:'15px',
+            left:'10px',
+            width:'22px',
+            height:'22px'
+        };
+        var textStyle = {
+            fontSize: '15px',
+            fontFamily:'Lato,Arial,serif',
+            fontWeight: 'bold',
+            letterSpacing: '1px',
+            textAlign:'left',
+            textIndent:'40px',
+            lineHeight:'52px',
+            color:'rgb(74,83,116)'
+        };
+        return (<div style={informationOutStyle}>
+        <div style={informationInnerLeftStyle}></div>
+        <div style={informationInnerRightStyle}>
+        <div style={_.extend(informationInnerTopStyle,textStyle)}><img style={imgStyle} src='./src/createTask/img/nn.png'></img>name</div>
+        <div style={_.extend(informationInnerBottomStyle,textStyle)}><img style={imgStyle} src='./src/createTask/img/tt.png'></img>tags</div>
+        </div></div>);
     }
 });
 
