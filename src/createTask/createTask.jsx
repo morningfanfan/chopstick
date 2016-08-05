@@ -3,16 +3,10 @@ import ReactDOM from "react-dom";
 import $ from "jquery";
 import _ from "lodash";
 
-var Container = React.createClass({
-    render: function() {
-        var wholeStyle = {
-            boxShadow:'0 0 20px rgba(132,131,131,0.8)',
-            width:'500px',
-            height:'600px'
-        };
-        return <div style = {wholeStyle}></div>
-    }
-});
+var text = {
+    left:'TASK',
+    right:'PROJECT'
+};
 var Slide_toggle = React.createClass({
     getInitialState: function() {
         return {
@@ -68,6 +62,7 @@ var Slide_toggle = React.createClass({
                 </div>);
     }
 });
+
 
 var Slide_button = React.createClass({
     render: function() {
@@ -138,10 +133,15 @@ var Content = React.createClass({
         return <div style = {informationStyle}> this.props.data.text </div>
     }
 });
-var text = {
-    left:'TASK',
-    right:'PROJECT'
-};
-ReactDOM.render(<Container/>, document.getElementById('container'));
-ReactDOM.render(<Slide_toggle text = {text}/>, document.getElementById('taskOrProject'));
-ReactDOM.render(<Content/>, document.getElementById('content'));
+var Container = React.createClass({
+    render: function() {
+        var wholeStyle = {
+            boxShadow:'0 0 20px rgba(132,131,131,0.8)',
+            width:'500px',
+            height:'600px'
+        };
+        return (<div id='container' style = {wholeStyle}><Slide_toggle data={this.props.text}/><Content/></div>)
+    }
+});
+
+ReactDOM.render((<Container data={text}/>), document.getElementById('content'));
