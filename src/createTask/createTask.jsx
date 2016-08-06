@@ -103,15 +103,6 @@ var Slide_button = React.createClass({
         return <div><img src={this.props.data.img}style={imgStyle}></img><div style={_.extend(slideStyle,clickStyle)} onClick={this.props.data.onClick}>{this.props.data.text}</div></div>
     }
 });
-var Content = React.createClass({
-    render: function() {
-
-        var informationStyle = {
-            width:'5px'
-        };
-        return <div style = {informationStyle}> </div>
-    }
-});
 var Container = React.createClass({
     render: function() {
         var wholeStyle = {
@@ -145,6 +136,7 @@ var Container = React.createClass({
         <Slide_toggle text={text}/>
         </div></div></div>
         <Content/>
+        <Time/>
         </div>)
     }
 });
@@ -159,9 +151,10 @@ var Content = React.createClass({
             borderWidth:'2px',
             borderStyle:'solid',
             borderRadius:'4px',
+            position:'relative'
         };
         var informationInnerLeftStyle = {
-            width:'20%',
+            width:'10%',
             height:'100%',
             borderRightColor:'#e2e7ec',
             borderRightWidth:'2px',
@@ -169,7 +162,7 @@ var Content = React.createClass({
             float:'left'
         };
         var informationInnerRightStyle = {
-            width:'79.5%',
+            width:'89.5%',
             height:'100%',
             float:'left'
         };
@@ -204,12 +197,97 @@ var Content = React.createClass({
             lineHeight:'52px',
             color:'rgb(74,83,116)'
         };
+        var numberStyle = {
+            fontSize: '20px',
+            fontFamily:'Lato,Arial,serif',
+            fontWeight: 'bold',
+            fontStyle:'oblique',
+            textAlign:'left',
+            textIndent:'15px',
+            lineHeight:'120px',
+            color:'rgb(200,206,213)'
+        };
         return (<div style={informationOutStyle}>
-        <div style={informationInnerLeftStyle}></div>
+        <div style={_.extend(informationInnerLeftStyle,numberStyle)}>1</div>
         <div style={informationInnerRightStyle}>
         <div style={_.extend(informationInnerTopStyle,textStyle)}><img style={imgStyle} src='./src/createTask/img/nn.png'></img>name</div>
         <div style={_.extend(informationInnerBottomStyle,textStyle)}><img style={imgStyle} src='./src/createTask/img/tt.png'></img>tags</div>
         </div></div>);
+    }
+});
+var Time = React.createClass({
+    render: function() {
+
+        var timeFirstStyle = {
+            width:'419px',
+            height:'40px',
+            margin:'0 auto',
+            marginTop:'20px',
+            borderColor:'#e2e7ec',
+            borderWidth:'2px',
+            borderStyle:'solid',
+            borderRadius:'4px',
+            position:'relative'
+        };
+        var positionBox = {
+            width:'422px',
+            height:'130px',
+            margin:'0 auto',
+            position:'relative'
+        };
+        var timeSecondStyle = {
+            width:'350px',
+            height:'50px',
+            borderColor:'#e2e7ec',
+            borderWidth:'2px',
+            borderStyle:'solid',
+            borderRadius:'4px',
+            float:'right',
+            fontSize: '15px',
+            fontFamily:'Lato,Arial,serif',
+            fontWeight: 'bold',
+            letterSpacing: '1px',
+            textAlign:'left',
+            textIndent:'40px',
+            lineHeight:'52px',
+            color:'rgb(74,83,116)'
+        };
+        var startTimeStyle = {
+        };
+        var endTimeStyle = {
+            marginTop:'10px'
+        };
+        var repeatStyle = {
+            marginTop:'10px'
+        };
+        var img1Style = {
+            position:'absolute',
+            top:'28px',
+            left:'80px',
+            width:'19px',
+            height:'19px'
+        };
+        var img2Style = {
+            position:'absolute',
+            top:'92px',
+            left:'80px',
+            width:'19px',
+            height:'19px'
+        };
+        var img3Style = {
+            position:'absolute',
+            top:'92px',
+            left:'80px',
+            width:'19px',
+            height:'19px'
+        };
+        return (<div><div style={timeFirstStyle}></div>
+        <div style={positionBox}>
+        <div style={_.extend(timeSecondStyle,startTimeStyle)}><img style={img1Style} src='./src/createTask/img/time.png'></img>start time</div>
+        <div style={_.extend(timeSecondStyle,endTimeStyle)}><img style={img2Style} src='./src/createTask/img/time.png'></img>end time</div>
+        <div style={_.extend(timeSecondStyle,repeatStyle)}><img style={img3Style} src='./src/createTask/img/time.png'></img>repeat</div>
+        </div>
+        </div>)
     }
 });
 
