@@ -106,7 +106,7 @@ var Slide_button = React.createClass({
 var Container = React.createClass({
     render: function() {
         var wholeStyle = {
-            boxShadow:'0 0 20px rgba(132,131,131,0.8)',
+            boxShadow:'0 0 20px rgba(74,83,116,0.8)',
             width:'600px',
             height:'600px',
             margin:'0 auto'
@@ -117,7 +117,7 @@ var Container = React.createClass({
             backgroundColor:'#8a98b8'
         };
         var padding = {
-            paddingTop:'10px'
+            paddingTop:'13px'
         };
         var smallerStyle = {
             width:'70%',
@@ -127,7 +127,7 @@ var Container = React.createClass({
             borderWidth:'3px',
             borderStyle:'solid',
             borderRadius:'4px',
-            boxShadow:'rgb(74, 83, 116) 0px 0px 20px'
+            boxShadow:'rgb(225, 225, 225) 0px 0px 10px'
         };
         return (<div style={wholeStyle}>
         <div style={smallStyle}>
@@ -282,11 +282,31 @@ var Time = React.createClass({
             width:'19px',
             height:'19px'
         };
+        var lineStyle = {
+            position:'absolute',
+            borderColor:'#e2e7ec',
+            borderWidth:'0 0 2px 2px',
+            borderStyle:'solid',
+            left:'30px',
+            width:'38px',
+        };
+        var line1Style = {
+            height:'40px'
+        };
+        var line2Style = {
+            top:'40px',
+            height:'60px'
+        };
+        var line3Style = {
+            top:'100px',
+            height:'60px'
+        };
         return (<div><div style={timeFirstStyle}></div>
         <div style={positionBox}>
+        <div style={_.extend(line1Style,lineStyle)}></div><div style={_.extend(line2Style,lineStyle)}></div><div style={_.extend(line3Style,lineStyle)}></div>
         <div style={_.extend(timeSecondStyle,startTimeStyle)}><img style={img1Style} src='./src/createTask/img/time.png'></img>start time</div>
         <div style={_.extend(timeSecondStyle,endTimeStyle)}><img style={img2Style} src='./src/createTask/img/time.png'></img>end time</div>
-        <div style={_.extend(timeSecondStyle,repeatStyle)}><img style={img3Style} src='./src/createTask/img/time.png'></img>repeat</div>
+        <div style={_.extend(timeSecondStyle,repeatStyle)}><img style={img3Style} src='./src/createTask/img/r.png'></img>repeat</div>
         </div>
         </div>)
     }
@@ -304,17 +324,31 @@ var Next = React.createClass({
             letterSpacing: '3px',
             textAlign:'center',
             lineHeight:'70px',
-            position:'relative',
-            top:'100px'
+            float:'left',
+            marginTop:'35px'
+        };
+        var submitStyle = {
+            width:'70px',
+            height:'70px',
+            backgroundColor:'#42a39b',
+            float:'left'
         };
         var imgStyle = {
-            position:'absolute',
-            top:'156px',
-            left:'80px',
-            width:'19px',
-            height:'19px'
+            position:'relative',
+            left:'20px',
+            width:'15px',
+            height:'14px'
         };
-        return <div style={nextStyle}>ADD SOME NOTE</div>
+        var submitImgStyle = {
+            marginTop:'20px',
+            width:'30px',
+            height:'30px'
+        };
+        return <div style={nextStyle}>
+        <div style={submitStyle}><img style={submitImgStyle} src='./src/createTask/img/yes.png'></img></div>
+        OR ADD SOME NOTE
+        <img style={imgStyle} src='./src/createTask/img/arrow.png'></img>
+        </div>
     }
 });
 
