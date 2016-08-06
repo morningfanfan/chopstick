@@ -137,6 +137,7 @@ var Container = React.createClass({
         </div></div></div>
         <Content/>
         <Time/>
+        <Next/>
         </div>)
     }
 });
@@ -276,7 +277,7 @@ var Time = React.createClass({
         };
         var img3Style = {
             position:'absolute',
-            top:'92px',
+            top:'156px',
             left:'80px',
             width:'19px',
             height:'19px'
@@ -288,6 +289,32 @@ var Time = React.createClass({
         <div style={_.extend(timeSecondStyle,repeatStyle)}><img style={img3Style} src='./src/createTask/img/time.png'></img>repeat</div>
         </div>
         </div>)
+    }
+});
+var Next = React.createClass({
+    render: function() {
+        var nextStyle = {
+            width:'100%',
+            height:'70px',
+            backgroundColor:'#00d4c3',
+            color:'#fff',
+            fontSize: '20px',
+            fontFamily:'Lato,Arial,serif',
+            fontWeight: 'bold',
+            letterSpacing: '3px',
+            textAlign:'center',
+            lineHeight:'70px',
+            position:'relative',
+            top:'100px'
+        };
+        var imgStyle = {
+            position:'absolute',
+            top:'156px',
+            left:'80px',
+            width:'19px',
+            height:'19px'
+        };
+        return <div style={nextStyle}>ADD SOME NOTE</div>
     }
 });
 
