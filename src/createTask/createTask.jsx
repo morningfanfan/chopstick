@@ -7,7 +7,6 @@ var text = {
     left:'ONETASK',
     right:'PROJECT'
 };
-var page = 1;
 var Slide_toggle = React.createClass({
     getInitialState: function() {
         return {
@@ -351,8 +350,7 @@ var Priority = React.createClass({
             fontFamily: 'Lato, Arial, serif',
             fontWeight: 'bold',
             fontStyle: 'oblique',
-            textAlign: 'left',
-            textIndent: '15px',
+            textAlign: 'center',
             lineHeight: '40px'
         };
         var prioritySecondStyle = {
@@ -409,11 +407,16 @@ var Next = React.createClass({
     },
     handleClick: function (e) {
         if(e==1){
-           page = 2
-        }
+           this.setState({
+            page:2
+            });
+        };
         if(e==2){
-           page = 3
-        }
+           this.setState({
+            page:3
+            });
+        };
+        this.props.callbackParent;
     },
     render: function() {
         var nextStyle = {
@@ -449,6 +452,7 @@ var Next = React.createClass({
             width:'30px',
             height:'30px'
         };
+        
         return <div>
         <div style={submitStyle} onClick={this.handleClick.bind(this,2)} onMouseOver={this.changeColor2.bind(this,1)} onMouseOut={this.changeColor2.bind(this,2)}><img style={submitImgStyle} src='./src/createTask/img/yes.png'></img></div>
         <div style={nextStyle} onClick={this.handleClick.bind(this,1)} onMouseOver={this.changeColor1.bind(this,1)} onMouseOut={this.changeColor1.bind(this,2)}>OR ADD SOME NOTE
@@ -457,14 +461,34 @@ var Next = React.createClass({
     }
 });
 var SlidePage = React.createClass({
+    getInitialState: function() {
+        return {
+            page:1
+        };
+    },
     render: function() {
-
-        return (<div>        
+        var animateStyle = {
+            width:'70px',
+            height:'70px',
+            backgroundColor:this.state.submitHover?'#42a39b':'rgb(54,135,128)',
+            float:'left'
+        };
+        if(this.state.page==1){
+            return (<div>        
                 <Content/>
                 <Time/>
                 <Priority/>
-                <Next/>
+                <Next callbackParent={this.render}/>
                 </div>)
+        };
+        if(this.state.page==2){
+            return (<div style={animateStyle}>        
+                <Content/>
+                <Time/>
+                <Priority/>
+                <Next callbackParent={this.render}/>
+                </div>)
+        }
     }
 });
 
