@@ -7,6 +7,7 @@ var text = {
     left:'ONETASK',
     right:'PROJECT'
 };
+var page = 1;
 var Slide_toggle = React.createClass({
     getInitialState: function() {
         return {
@@ -135,9 +136,7 @@ var Container = React.createClass({
         <div style={smallerStyle}>
         <Slide_toggle text={text}/>
         </div></div></div>
-        <Content/>
-        <Time/>
-        <Next/>
+        <SlidePage page={page}/>
         </div>)
     }
 });
@@ -183,7 +182,7 @@ var Content = React.createClass({
         };
         var imgStyle = {
             position:'absolute',
-            top:'15px',
+            top:'18px',
             left:'10px',
             width:'22px',
             height:'22px'
@@ -195,7 +194,7 @@ var Content = React.createClass({
             letterSpacing: '1px',
             textAlign:'left',
             textIndent:'40px',
-            lineHeight:'52px',
+            lineHeight:'60px',
             color:'rgb(74,83,116)'
         };
         var numberStyle = {
@@ -228,7 +227,15 @@ var Time = React.createClass({
             borderWidth:'2px',
             borderStyle:'solid',
             borderRadius:'4px',
-            position:'relative'
+            position:'relative',
+            color:'rgb(200,206,213)',
+            fontSize: '20px',
+            fontFamily: 'Lato, Arial, serif',
+            fontWeight: 'bold',
+            fontStyle: 'oblique',
+            textAlign: 'left',
+            textIndent: '15px',
+            lineHeight: '40px'
         };
         var positionBox = {
             width:'422px',
@@ -238,11 +245,10 @@ var Time = React.createClass({
         };
         var timeSecondStyle = {
             width:'350px',
-            height:'50px',
+            height:'40px',
             borderColor:'#e2e7ec',
             borderWidth:'2px',
             borderStyle:'solid',
-            borderRadius:'4px',
             float:'right',
             fontSize: '15px',
             fontFamily:'Lato,Arial,serif',
@@ -250,37 +256,56 @@ var Time = React.createClass({
             letterSpacing: '1px',
             textAlign:'left',
             textIndent:'40px',
-            lineHeight:'52px',
+            lineHeight:'40px',
             color:'rgb(74,83,116)'
         };
         var startTimeStyle = {
+            borderRadius:'100px',
         };
         var endTimeStyle = {
-            marginTop:'10px'
-        };
-        var repeatStyle = {
-            marginTop:'10px'
+            marginTop:'10px',
         };
         var img1Style = {
             position:'absolute',
-            top:'28px',
+            top:'23px',
             left:'80px',
             width:'19px',
             height:'19px'
         };
         var img2Style = {
             position:'absolute',
-            top:'92px',
+            top:'77px',
             left:'80px',
             width:'19px',
             height:'19px'
         };
         var img3Style = {
             position:'absolute',
-            top:'156px',
+            top:'151px',
             left:'80px',
             width:'19px',
             height:'19px'
+        };
+        var imgdown1Style = {
+            position:'absolute',
+            top:'23px',
+            left:'390px',
+            width:'15px',
+            height:'15px'
+        };
+        var imgdown2Style = {
+            position:'absolute',
+            top:'77px',
+            left:'390px',
+            width:'15px',
+            height:'15px'
+        };
+        var imgdown3Style = {
+            position:'absolute',
+            top:'151px',
+            left:'390px',
+            width:'15px',
+            height:'15px'
         };
         var lineStyle = {
             position:'absolute',
@@ -291,32 +316,110 @@ var Time = React.createClass({
             width:'38px',
         };
         var line1Style = {
-            height:'40px'
+            height:'35px'
         };
         var line2Style = {
-            top:'40px',
-            height:'60px'
+            top:'35px',
+            height:'55px'
         };
-        var line3Style = {
-            top:'100px',
-            height:'60px'
-        };
-        return (<div><div style={timeFirstStyle}></div>
+        return (<div><div style={timeFirstStyle}>2</div>
         <div style={positionBox}>
-        <div style={_.extend(line1Style,lineStyle)}></div><div style={_.extend(line2Style,lineStyle)}></div><div style={_.extend(line3Style,lineStyle)}></div>
-        <div style={_.extend(timeSecondStyle,startTimeStyle)}><img style={img1Style} src='./src/createTask/img/time.png'></img>start time</div>
-        <div style={_.extend(timeSecondStyle,endTimeStyle)}><img style={img2Style} src='./src/createTask/img/time.png'></img>end time</div>
-        <div style={_.extend(timeSecondStyle,repeatStyle)}><img style={img3Style} src='./src/createTask/img/r.png'></img>repeat</div>
+        <div style={_.extend(line1Style,lineStyle)}></div><div style={_.extend(line2Style,lineStyle)}></div>
+        <div style={_.extend(timeSecondStyle,startTimeStyle)}><img style={img1Style} src='./src/createTask/img/time.png'></img>from<img style={imgdown1Style} src='./src/createTask/img/down.png'></img></div>
+        <div style={_.extend(timeSecondStyle,endTimeStyle)}><img style={img2Style} src='./src/createTask/img/time.png'></img>to<img style={imgdown2Style} src='./src/createTask/img/down.png'></img></div>
         </div>
         </div>)
     }
 });
+var Priority = React.createClass({
+    render: function() {
+        var priorityFirstStyle = {
+            width:'419px',
+            height:'40px',
+            margin:'0 auto',
+            position:'relative',
+        };
+        var numberStyle = {
+            width:'40px',
+            height:'40px',
+            borderColor:'#e2e7ec',
+            borderWidth:'2px',
+            borderStyle:'solid',
+            borderRadius:'4px',
+            color:'rgb(200,206,213)',
+            fontSize: '20px',
+            fontFamily: 'Lato, Arial, serif',
+            fontWeight: 'bold',
+            fontStyle: 'oblique',
+            textAlign: 'left',
+            textIndent: '15px',
+            lineHeight: '40px'
+        };
+        var prioritySecondStyle = {
+            position:'relative',
+            bottom:'44px',
+            left:'69px',
+            width:'350px',
+            height:'40px',
+            borderColor:'#e2e7ec',
+            borderWidth:'2px',
+            borderStyle:'solid',
+            borderRadius:'4px',
+            color:'rgb(200,206,213)'
+        };
+        return (<div style={priorityFirstStyle}>
+                <div style={numberStyle}>3</div>
+                <div style={prioritySecondStyle}>
+                <div></div>
+                <div></div>
+                <div></div>
+                </div>
+                </div>)
+    }
+});
 var Next = React.createClass({
+    getInitialState: function() {
+        return {
+            noteHover:false
+        };
+    },
+    changeColor1: function (e) {
+        if(e==1){
+           this.setState({
+            noteHover:true
+           });
+        }
+        if(e==2){
+            this.setState({
+            noteHover:false
+            });
+        }
+    },
+    changeColor2: function (e) {
+        if(e==1){
+           this.setState({
+            submitHover:true
+           });
+        }
+        if(e==2){
+            this.setState({
+            submitHover:false
+            });
+        }
+    },
+    handleClick: function (e) {
+        if(e==1){
+           page = 2
+        }
+        if(e==2){
+           page = 3
+        }
+    },
     render: function() {
         var nextStyle = {
-            width:'100%',
+            width:'530px',
             height:'70px',
-            backgroundColor:'#00d4c3',
+            backgroundColor:this.state.noteHover?'rgb(2,228,209)':'#00d4c3',
             color:'#fff',
             fontSize: '20px',
             fontFamily:'Lato,Arial,serif',
@@ -324,13 +427,15 @@ var Next = React.createClass({
             letterSpacing: '3px',
             textAlign:'center',
             lineHeight:'70px',
-            float:'left',
-            marginTop:'35px'
+            marginTop:'57px',
+            position:'relative',
+            textIndent:'-70px',
+            left:'70px'
         };
         var submitStyle = {
             width:'70px',
             height:'70px',
-            backgroundColor:'#42a39b',
+            backgroundColor:this.state.submitHover?'#42a39b':'rgb(54,135,128)',
             float:'left'
         };
         var imgStyle = {
@@ -340,15 +445,26 @@ var Next = React.createClass({
             height:'14px'
         };
         var submitImgStyle = {
-            marginTop:'20px',
+            margin:'20px',
             width:'30px',
             height:'30px'
         };
-        return <div style={nextStyle}>
-        <div style={submitStyle}><img style={submitImgStyle} src='./src/createTask/img/yes.png'></img></div>
-        OR ADD SOME NOTE
+        return <div>
+        <div style={submitStyle} onClick={this.handleClick.bind(this,2)} onMouseOver={this.changeColor2.bind(this,1)} onMouseOut={this.changeColor2.bind(this,2)}><img style={submitImgStyle} src='./src/createTask/img/yes.png'></img></div>
+        <div style={nextStyle} onClick={this.handleClick.bind(this,1)} onMouseOver={this.changeColor1.bind(this,1)} onMouseOut={this.changeColor1.bind(this,2)}>OR ADD SOME NOTE
         <img style={imgStyle} src='./src/createTask/img/arrow.png'></img>
-        </div>
+        </div></div>
+    }
+});
+var SlidePage = React.createClass({
+    render: function() {
+
+        return (<div>        
+                <Content/>
+                <Time/>
+                <Priority/>
+                <Next/>
+                </div>)
     }
 });
 
