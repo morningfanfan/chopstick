@@ -1,7 +1,7 @@
 var webpack = require("webpack");
 
 module.exports = {
-    entry: "./src/createTask/createTask.jsx",
+    entry: "./src/ui/index.jsx",
     output: {
         filename: "./dist/bundle.js",
     },

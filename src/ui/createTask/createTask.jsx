@@ -3,11 +3,7 @@ import ReactDOM from "react-dom";
 import $ from "jquery";
 import _ from "lodash";
 
-var text = {
-    left: 'ONETASK',
-    right: 'PROJECT'
-};
-var Slide_toggle = React.createClass({
+export var Slide_toggle = React.createClass({
     getInitialState: function() {
         return {
             leftClickDown: true,
@@ -46,18 +42,22 @@ var Slide_toggle = React.createClass({
         }
     },
     render: function() {
+        var text = {
+            left: 'ONETASK',
+            right: 'PROJECT'
+        };
         var dataL = {
             clickDown: this.state.leftClickDown,
-            text: this.props.text.left,
+            text: text.left,
             onClick: this.clickLeft,
-            img: './src/createTask/img/f.png',
+            img: './statics/img/f.png',
             imgLeft: '60%'
         };
         var dataR = {
             clickDown: this.state.rightClickDown,
-            text: this.props.text.right,
+            text: text.right,
             onClick: this.clickRight,
-            img: './src/createTask/img/d.png',
+            img: './statics/img/d.png',
             imgLeft: '10%'
         };
         return (<div style={{position:'relative'}}>
@@ -68,7 +68,7 @@ var Slide_toggle = React.createClass({
 });
 
 
-var Slide_button = React.createClass({
+export var Slide_button = React.createClass({
     render: function() {
 
         var slideStyle = {
@@ -103,7 +103,7 @@ var Slide_button = React.createClass({
         return <div><img src={this.props.data.img}style={imgStyle}></img><div style={_.extend(slideStyle,clickStyle)} onClick={this.props.data.onClick}>{this.props.data.text}</div></div>
     }
 });
-var Container = React.createClass({
+export var Container = React.createClass({
     render: function() {
         var wholeStyle = {
             boxShadow: '0 0 20px rgba(74,83,116,0.8)',
@@ -133,13 +133,13 @@ var Container = React.createClass({
         <div style={smallStyle}>
         <div style={padding}>
         <div style={smallerStyle}>
-        <Slide_toggle text={text}/>
+        <Slide_toggle/>
         </div></div></div>
-        <SlidePage page={page}/>
+        <SlidePage/>
         </div>)
     }
 });
-var Content = React.createClass({
+export var Content = React.createClass({
     render: function() {
         var informationOutStyle = {
             width: '419px',
@@ -209,12 +209,12 @@ var Content = React.createClass({
         return (<div style={informationOutStyle}>
         <div style={_.extend(informationInnerLeftStyle,numberStyle)}>1</div>
         <div style={informationInnerRightStyle}>
-        <div style={_.extend(informationInnerTopStyle,textStyle)}><img style={imgStyle} src='./src/createTask/img/nn.png'></img>name</div>
-        <div style={_.extend(informationInnerBottomStyle,textStyle)}><img style={imgStyle} src='./src/createTask/img/tt.png'></img>tags</div>
+        <div style={_.extend(informationInnerTopStyle,textStyle)}><img style={imgStyle} src='./statics/img/nn.png'></img>name</div>
+        <div style={_.extend(informationInnerBottomStyle,textStyle)}><img style={imgStyle} src='./statics/img/tt.png'></img>tags</div>
         </div></div>);
     }
 });
-var Time = React.createClass({
+export var Time = React.createClass({
     render: function() {
 
         var timeFirstStyle = {
@@ -324,13 +324,13 @@ var Time = React.createClass({
         return (<div><div style={timeFirstStyle}>2</div>
         <div style={positionBox}>
         <div style={_.extend(line1Style,lineStyle)}></div><div style={_.extend(line2Style,lineStyle)}></div>
-        <div style={_.extend(timeSecondStyle,startTimeStyle)}><img style={img1Style} src='./src/createTask/img/time.png'></img>from<img style={imgdown1Style} src='./src/createTask/img/down.png'></img></div>
-        <div style={_.extend(timeSecondStyle,endTimeStyle)}><img style={img2Style} src='./src/createTask/img/time.png'></img>to<img style={imgdown2Style} src='./src/createTask/img/down.png'></img></div>
+        <div style={_.extend(timeSecondStyle,startTimeStyle)}><img style={img1Style} src='./statics/img/time.png'></img>from<img style={imgdown1Style} src='./statics/img/down.png'></img></div>
+        <div style={_.extend(timeSecondStyle,endTimeStyle)}><img style={img2Style} src='./statics/img/time.png'></img>to<img style={imgdown2Style} src='./statics/img/down.png'></img></div>
         </div>
         </div>)
     }
 });
-var Priority = React.createClass({
+export var Priority = React.createClass({
     render: function() {
         var priorityFirstStyle = {
             width: '419px',
@@ -375,7 +375,7 @@ var Priority = React.createClass({
                 </div>)
     }
 });
-var Next = React.createClass({
+export var Next = React.createClass({
     getInitialState: function() {
         return {
             noteHover: false
@@ -454,13 +454,13 @@ var Next = React.createClass({
         };
 
         return <div>
-        <div style={submitStyle} onClick={this.handleClick.bind(this,2)} onMouseOver={this.changeColor2.bind(this,1)} onMouseOut={this.changeColor2.bind(this,2)}><img style={submitImgStyle} src='./src/createTask/img/yes.png'></img></div>
+        <div style={submitStyle} onClick={this.handleClick.bind(this,2)} onMouseOver={this.changeColor2.bind(this,1)} onMouseOut={this.changeColor2.bind(this,2)}><img style={submitImgStyle} src='./statics/img/yes.png'></img></div>
         <div style={nextStyle} onClick={this.handleClick.bind(this,1)} onMouseOver={this.changeColor1.bind(this,1)} onMouseOut={this.changeColor1.bind(this,2)}>OR ADD SOME NOTE
-        <img style={imgStyle} src='./src/createTask/img/arrow.png'></img>
+        <img style={imgStyle} src='./statics/img/arrow.png'></img>
         </div></div>
     }
 });
-var SlidePage = React.createClass({
+export var SlidePage = React.createClass({
     getInitialState: function() {
         return {
             page: 1
@@ -496,5 +496,3 @@ var SlidePage = React.createClass({
         }
     }
 });
-
-ReactDOM.render((<Container/>), document.getElementById('content'));
