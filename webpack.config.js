@@ -1,7 +1,10 @@
 var webpack = require("webpack");
 
 module.exports = {
-    entry: "./src/ui/index.jsx",
+    entry: {
+        entry1: "./src/ui/index.jsx",
+        entry2: "./src/ui/TodoDisplaysetIndent.jsx",
+    },
     output: {
         filename: "./dist/bundle.js",
     },

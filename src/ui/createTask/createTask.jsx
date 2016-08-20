@@ -12,7 +12,8 @@ export var Container = React.createClass({
             boxShadow: '0 0 20px rgba(74,83,116,0.8)',
             width: '600px',
             height: '600px',
-            margin: '0 auto'
+            margin: '0 auto',
+            visibility: 'hidden'
         };
         var smallStyle = {
             width: '100%',
