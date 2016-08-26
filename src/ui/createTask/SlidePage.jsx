@@ -1,8 +1,16 @@
 import React from "react";
-import {Priority} from "./Priority";
-import {Time} from "./Time";
-import {Next} from "./Next";
-import {Content} from "./Content";
+import {
+    Priority
+} from "./Priority";
+import {
+    Time
+} from "./Time";
+import {
+    Next
+} from "./Next";
+import {
+    Content
+} from "./Content";
 
 export var SlidePage = React.createClass({
     getInitialState: function() {
@@ -17,10 +25,10 @@ export var SlidePage = React.createClass({
     },
     render: function() {
         var animateStyle = {
-            width: '70px',
-            height: '70px',
-            backgroundColor: this.state.submitHover ? '#42a39b' : 'rgb(54,135,128)',
-            float: 'left'
+            width: "70px",
+            height: "70px",
+            backgroundColor: this.state.submitHover ? "#42a39b" : "rgb(54,135,128)",
+            float: "left"
         };
         if (this.state.page == 1) {
             return (<div>        

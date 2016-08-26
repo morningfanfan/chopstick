@@ -1,5 +1,7 @@
 import React from "react";
-import {SlideButton} from "./SlideButton";
+import {
+    SlideButton
+} from "./SlideButton";
 
 export var SlideToggle = React.createClass({
     getInitialState: function() {
@@ -41,24 +43,24 @@ export var SlideToggle = React.createClass({
     },
     render: function() {
         var text = {
-            left: 'ONETASK',
-            right: 'PROJECT'
+            left: "ONETASK",
+            right: "PROJECT"
         };
         var dataL = {
             clickDown: this.state.leftClickDown,
             text: text.left,
             onClick: this.clickLeft,
-            img: './statics/img/f.png',
-            imgLeft: '60%'
+            img: "./statics/img/f.png",
+            imgLeft: "60%"
         };
         var dataR = {
             clickDown: this.state.rightClickDown,
             text: text.right,
             onClick: this.clickRight,
-            img: './statics/img/d.png',
-            imgLeft: '10%'
+            img: "./statics/img/d.png",
+            imgLeft: "10%"
         };
-        return (<div style={{position:'relative'}}>
+        return (<div style={{position:"relative"}}>
                     <SlideButton data={dataL}/> 
                     <SlideButton data={dataR}/> 
                 </div>);
