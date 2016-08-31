@@ -3,66 +3,6 @@ import ReactDOM from "react-dom";
 import {
     TodoElement
 } from "./HandleMove";
-/*export var setIndent = function(data,init) {
-    data.map(function(e){
-        if(e.type==task)
-          e.indent = init;
-        if(e.type==project){
-            e.indent = init;
-            if(e.tasks){
-                setIndent(e.tasks,init+2)
-            }
-            if(e.projects){
-                setIndent(e.tasks,init+2)
-            }
-        }
-    })
-    return data;
-};*/
-/*
-var data = [{
-    name: "task1",
-    type: task,
-    id: 0
-}, {
-    name: "project1",
-    type: "project",
-    tasks: [{
-        name: "task2",
-        type: task,
-        belong: project1
-    }, {
-        name: "task3",
-        type: task,
-        belong: project1
-    }],
-    projects: [{
-        name: "project2",
-        type: "project",
-        belong: project1,
-        tasks: [{
-            name: "task4",
-            type: task,
-            belong: project2
-        }, {
-            name: "task5",
-            type: task,
-            belong: project2
-        }]
-    }, {
-        name: "project3",
-        type: "project",
-        belong: project2,
-        tasks: []
-    }]
-}, {
-    name: "project2",
-    type: "project",
-    tasks: []
-}, {
-    name: "task4",
-    type: task
-}];*/
 
 var result = [{
     name: "task1",
@@ -122,38 +62,45 @@ export var Form = React.createClass({
     getInitialState: function() {
         return {
             toDoList: result,
+            offsetIndent: 0,
             itState: {
-                offsetIndent: 0,
                 move: true
             }
         }
     },
     exchange: function(a, b) {
-        console.log("exchange happened!")
         var tmp = this.state.toDoList[a];
         this.state.toDoList[a] = this.state.toDoList[b];
         this.state.toDoList[b] = tmp;
     },
     a: function(e, X) {
-        var n = (X + (i / 2)) / i //x%20取整数部分,daiding
-        console.log(result[e.id])
-        var max = result[e.id - 1].indent % i - result[e.id].indent % i
-        max >= n ?
+        var n = parseInt((X + (i / 2)) / i)
+        var max = this.state.toDoList[e.id - 1].indent / i - this.state.toDoList[e.id].indent / i
+        max > 0 ? (max >= n ?
+                this.setState({
+                    offsetIndent: n * i
+                }) :
+                this.setState({
+                    offsetIndent: max * i
+                })) :
             this.setState({
-                offsetIndent: n * i
-            }) :
-            this.setState({
-                offsetIndent: max * i
+                offsetIndent: 0
             })
     },
     b: function(e, X) {
-        var n = (X - (i / 2)) / i
-        result[e.id].indent + n * i >= 0 ?
+        var n = Math.abs(parseInt((X - (i / 2)) / i))
+        var max = this.state.toDoList[e.id].indent / i
+        console.log("max:" + max)
+        console.log("n:" + n)
+        max > 0 ? (max >= n ?
+                this.setState({
+                    offsetIndent: -n * i
+                }) :
+                this.setState({
+                    offsetIndent: -max * i
+                })) :
             this.setState({
-                offsetIndent: n * i
-            }) :
-            this.setState({
-                offsetIndent: -result[e.id].indent
+                offsetIndent: 0
             })
     },
     c: function(e, X) {
@@ -170,16 +117,25 @@ export var Form = React.createClass({
         }
 
     },
-    sortToDoList: function(e, X, Y) { //e.type=task -left +right -up +down
+    componentDidUpdate: function(prevprops, prevstate) {
+        if (prevstate.offsetIndent !== this.state.offsetIndent && this.state.e) {
+            var toDoList = this.state.toDoList
+            toDoList[this.state.e.id].indent = toDoList[this.state.e.id].indent + this.state.offsetIndent
+            console.log("1:" + this.state.toDoList[this.state.e.id].indent)
+            this.setState({
+                toDoList: toDoList
+            })
+        }
+    },
+    sortToDoList: function(e, X, Y) {
         X > i / 2 ?
             this.a(e, X) :
             X < -i / 2 ?
             this.b(e, X) :
             this.c(e, X);
-        this.d(e, Y);
-        this.state.toDoList[e.id].indent = this.state.toDoList[e.id].indent + this.state.offsetIndent
+        // this.d(e, Y);
         this.setState({
-            toDoList: this.state.toDoList
+            e: e
         })
     },
     changeFatherMoveState: function() {
@@ -191,6 +147,7 @@ export var Form = React.createClass({
     },
     mouseUp: function() {
         this.setState({
+            offsetIndent: 0,
             itState: {
                 move: false
             }

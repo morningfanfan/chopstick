@@ -29,7 +29,8 @@ export var TodoElement = React.createClass({
             boxShadow: "0 0 20px rgb(132,131,131)",
             top: this.props.itState.mouseY,
             left: this.props.itState.mouseX,
-            WebkitUserSelect: 'none'
+            WebkitUserSelect: 'none',
+            zIndex: "1000"
         };
         return this.props.data.type == "task" ?
             _.extend(taskStyle, staticStyle) : _.extend(projectStyle, staticStyle);
@@ -51,12 +52,6 @@ export var TodoElement = React.createClass({
             position: "relative",
             left: this.props.data.indent,
             WebkitUserSelect: 'none'
-        };
-        if (this.props.data.id == 3 && this.state.seeIndent) {
-            console.log("indent:" + this.props.data.indent)
-            this.setState({
-                seeIndent: false
-            })
         }
         return this.state.move ?
             _.extend(fillStyle, moveStyle) :
@@ -71,9 +66,10 @@ export var TodoElement = React.createClass({
         })
     },
     componentWillUpdate: function(nextprops, nextstate) {
-        if (nextstate.move) {
-            this.distanceCount(this.props.data, nextstate.init)
+        if (nextstate.move && nextstate.move !== this.state.move) {
             this.props.changeFatherMoveState()
+            this.init(nextstate.init)
+
         }
     },
     componentWillReceiveProps: function(nextprops) {
@@ -82,27 +78,29 @@ export var TodoElement = React.createClass({
                 move: false
             })
         }
-        if (nextprops.data.indent !== this.props.data.indent) {
-            this.setState({
-                seeIndent: true
-            })
-        }
     },
-    distanceCount: function(it, init) {
+    componentDidUpdate: function(prevprops) {
+        this.distanceCount(this.props.data, prevprops)
+    },
+    init: function(init) {
         if (init) {
             this.setState({
                 initPositionX: this.props.itState.mouseX,
                 initPositionY: this.props.itState.mouseY,
                 init: false
             })
+        }
+    },
+    distanceCount: function(it, prevprops) {
+        if (this.state.initPositionX && prevprops.itState.mouseX !== this.props.itState.mouseX && this.state.move) {
             var Y = this.props.itState.mouseY - this.state.initPositionY;
             var X = this.props.itState.mouseX - this.state.initPositionX;
             this.props.sortToDoList(it, X, Y)
         }
     },
     render: function() {
-        return (<div onMouseDown={this.mouseDown}>
-        <div style={this.state.move?this.moveWithMouse():this.inTheLine()}>{this.props.data.name}</div>
+        return (<div>
+        <div onMouseDown={this.mouseDown} style={this.state.move?this.moveWithMouse():this.inTheLine()}>{this.props.data.name}</div>
         <div style={this.state.move?this.inTheLine():null}></div>
         </div>)
     }
