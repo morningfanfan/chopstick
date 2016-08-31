@@ -57,25 +57,32 @@ var result = [{
 }];
 var i = 40 //indent danwei
 var h = 50 //height danwei
-
+var oneMove = 4
+var oneHeight = 1
 export var Form = React.createClass({
     getInitialState: function() {
         return {
             toDoList: result,
             offsetIndent: 0,
             itState: {
+                count: 0,
+                offsetY: 0,
                 move: true
             }
         }
     },
     exchange: function(a, b) {
+        console.log("exchange happened!")
+        var id = this.state.toDoList[a].id
+        this.state.toDoList[a].id = this.state.toDoList[b].id;
+        this.state.toDoList[b].id = id;
         var tmp = this.state.toDoList[a];
         this.state.toDoList[a] = this.state.toDoList[b];
         this.state.toDoList[b] = tmp;
     },
     a: function(e, X) {
-        var n = parseInt((X + (i / 2)) / i)
-        var max = this.state.toDoList[e.id - 1].indent / i - this.state.toDoList[e.id].indent / i
+        var n = parseInt((X + (i / oneMove)) / i)
+        var max = this.state.toDoList[e.id - 1].indent / i - this.state.toDoList[e.id].indent / i + 1
         max > 0 ? (max >= n ?
                 this.setState({
                     offsetIndent: n * i
@@ -88,10 +95,10 @@ export var Form = React.createClass({
             })
     },
     b: function(e, X) {
-        var n = Math.abs(parseInt((X - (i / 2)) / i))
+        var n = Math.abs(parseInt((X - (i / oneMove)) / i))
         var max = this.state.toDoList[e.id].indent / i
-        console.log("max:" + max)
-        console.log("n:" + n)
+            //console.log("max:" + max)
+            //console.log("n:" + n)
         max > 0 ? (max >= n ?
                 this.setState({
                     offsetIndent: -n * i
@@ -109,31 +116,42 @@ export var Form = React.createClass({
         })
     },
     d: function(e, Y) {
-        if (Y < -h / 2 && e.id != 0) {
+        if (Y < -h / oneHeight && e.id != 0) {
             this.exchange(e.id - 1, e.id)
+            this.setState({
+                itState: {
+                    count: this.state.itState.count + 1,
+                    offsetY: h / oneHeight
+                }
+            })
         }
-        if (Y > h / 2 && e.id != result.length - 1) {
+        if (Y > h / oneHeight && e.id != this.state.toDoList.length - 1) {
             this.exchange(e.id, e.id + 1)
+            this.setState({
+                itState: {
+                    count: this.state.itState.count + 1,
+                    offsetY: -h / oneHeight
+                }
+            })
         }
-
     },
     componentDidUpdate: function(prevprops, prevstate) {
         if (prevstate.offsetIndent !== this.state.offsetIndent && this.state.e) {
             var toDoList = this.state.toDoList
             toDoList[this.state.e.id].indent = toDoList[this.state.e.id].indent + this.state.offsetIndent
-            console.log("1:" + this.state.toDoList[this.state.e.id].indent)
+                //console.log("1:" + this.state.toDoList[this.state.e.id].indent)
             this.setState({
                 toDoList: toDoList
             })
         }
     },
     sortToDoList: function(e, X, Y) {
-        X > i / 2 ?
+        X > i / oneMove ?
             this.a(e, X) :
-            X < -i / 2 ?
+            X < -i / oneMove ?
             this.b(e, X) :
             this.c(e, X);
-        // this.d(e, Y);
+        this.d(e, Y);
         this.setState({
             e: e
         })
@@ -157,7 +175,8 @@ export var Form = React.createClass({
         this.setState({
             itState: {
                 mouseX: e.pageX,
-                mouseY: e.pageY
+                mouseY: e.pageY,
+                count: 0
             }
         })
     },

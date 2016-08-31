@@ -12,7 +12,8 @@ export var TodoElement = React.createClass({
     getInitialState: function() {
         return {
             move: false,
-            init: false
+            init: false,
+            offsetY: 0
         }
     },
     moveWithMouse: function() {
@@ -30,7 +31,8 @@ export var TodoElement = React.createClass({
             top: this.props.itState.mouseY,
             left: this.props.itState.mouseX,
             WebkitUserSelect: 'none',
-            zIndex: "1000"
+            zIndex: "1000",
+            opacity: "0.5"
         };
         return this.props.data.type == "task" ?
             _.extend(taskStyle, staticStyle) : _.extend(projectStyle, staticStyle);
@@ -78,6 +80,13 @@ export var TodoElement = React.createClass({
                 move: false
             })
         }
+        if (this.props.itState.count !== nextprops.itState.count) {
+            console.log("kekeke")
+            this.setState({
+                offsetY: nextprops.itState.offsetY
+            })
+            console.log(nextprops.itState.offsetY) //why undifined????
+        }
     },
     componentDidUpdate: function(prevprops) {
         this.distanceCount(this.props.data, prevprops)
@@ -93,7 +102,7 @@ export var TodoElement = React.createClass({
     },
     distanceCount: function(it, prevprops) {
         if (this.state.initPositionX && prevprops.itState.mouseX !== this.props.itState.mouseX && this.state.move) {
-            var Y = this.props.itState.mouseY - this.state.initPositionY;
+            var Y = this.props.itState.mouseY - this.state.initPositionY + this.state.offsetY;
             var X = this.props.itState.mouseX - this.state.initPositionX;
             this.props.sortToDoList(it, X, Y)
         }
