@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import {
     TodoElement
 } from "./HandleMove";
+import update from 'react-addons-update';
 
 var result = [{
     name: "task1",
@@ -65,9 +66,9 @@ export var Form = React.createClass({
             toDoList: result,
             offsetIndent: 0,
             itState: {
-                count: 0,
-                offsetY: 0,
-                move: true
+                count: 0, ////////
+                offsetY: 0, //////////
+                move: true //////////
             }
         }
     },
@@ -118,21 +119,35 @@ export var Form = React.createClass({
     d: function(e, Y) {
         if (Y < -h / oneHeight && e.id != 0) {
             this.exchange(e.id - 1, e.id)
-            this.setState({
+            var newData = update(this.state, {
                 itState: {
-                    count: this.state.itState.count + 1,
-                    offsetY: h / oneHeight
+                    count: {
+                        $set: this.state.itState.count + 1
+                    },
+                    offsetY: {
+                        $set: h / oneHeight
+                    }
                 }
-            })
+            });
+
+            this.setState(newData)
+
         }
         if (Y > h / oneHeight && e.id != this.state.toDoList.length - 1) {
             this.exchange(e.id, e.id + 1)
-            this.setState({
+            var newData = update(this.state, {
                 itState: {
-                    count: this.state.itState.count + 1,
-                    offsetY: -h / oneHeight
+                    count: {
+                        $set: this.state.itState.count + 1
+                    },
+                    offsetY: {
+                        $set: -h / oneHeight
+                    }
                 }
-            })
+            });
+
+            this.setState(newData)
+
         }
     },
     componentDidUpdate: function(prevprops, prevstate) {
@@ -157,28 +172,44 @@ export var Form = React.createClass({
         })
     },
     changeFatherMoveState: function() {
-        this.setState({
+        var newData = update(this.state, {
             itState: {
-                move: true
+                move: {
+                    $set: true
+                }
             }
-        })
+        });
+        this.setState(newData)
+
     },
     mouseUp: function() {
         this.setState({
             offsetIndent: 0,
-            itState: {
-                move: false
-            }
         })
+        var newData = update(this.state, {
+            itState: {
+                move: {
+                    $set: false
+                },
+                count: {
+                    $set: 0
+                }
+            }
+        });
+        this.setState(newData)
     },
     mouseMove: function(e) {
-        this.setState({
+        var newData = update(this.state, {
             itState: {
-                mouseX: e.pageX,
-                mouseY: e.pageY,
-                count: 0
+                mouseX: {
+                    $set: e.pageX
+                },
+                mouseY: {
+                    $set: e.pageY
+                }
             }
         })
+        this.setState(newData)
     },
     eachElement: function(it) {
         return <TodoElement itState={this.state.itState} data={it} sortToDoList={this.sortToDoList} changeFatherMoveState={this.changeFatherMoveState}/>

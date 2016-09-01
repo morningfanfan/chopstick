@@ -81,11 +81,10 @@ export var TodoElement = React.createClass({
             })
         }
         if (this.props.itState.count !== nextprops.itState.count) {
-            console.log("kekeke")
+            console.log("ya!")
             this.setState({
                 offsetY: nextprops.itState.offsetY
             })
-            console.log(nextprops.itState.offsetY) //why undifined????
         }
     },
     componentDidUpdate: function(prevprops) {
@@ -108,6 +107,8 @@ export var TodoElement = React.createClass({
         }
     },
     render: function() {
+        if (this.state.move == true)
+            console.log(this.props.data.id)
         return (<div>
         <div onMouseDown={this.mouseDown} style={this.state.move?this.moveWithMouse():this.inTheLine()}>{this.props.data.name}</div>
         <div style={this.state.move?this.inTheLine():null}></div>
