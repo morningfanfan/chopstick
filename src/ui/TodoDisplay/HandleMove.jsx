@@ -68,50 +68,21 @@ export var TodoElement = React.createClass({
         })
     },
     componentWillUpdate: function(nextprops, nextstate) {
-        if (nextstate.move && nextstate.move !== this.state.move) {
-            this.props.changeFatherMoveState()
-            this.init(nextstate.init)
-
+        if (nextstate.move && !this.state.move) {
+            this.props.changeFatherMoveState(this.props.data.id)
         }
     },
     componentWillReceiveProps: function(nextprops) {
-        if (this.state.move && nextprops.itState.move == false) {
+        if (!nextprops.data.move && this.props.data.move) {
             this.setState({
-                move: false
+                move: false,
             })
-        }
-        if (this.props.itState.count !== nextprops.itState.count) {
-            console.log("ya!")
-            this.setState({
-                offsetY: nextprops.itState.offsetY
-            })
-        }
-    },
-    componentDidUpdate: function(prevprops) {
-        this.distanceCount(this.props.data, prevprops)
-    },
-    init: function(init) {
-        if (init) {
-            this.setState({
-                initPositionX: this.props.itState.mouseX,
-                initPositionY: this.props.itState.mouseY,
-                init: false
-            })
-        }
-    },
-    distanceCount: function(it, prevprops) {
-        if (this.state.initPositionX && prevprops.itState.mouseX !== this.props.itState.mouseX && this.state.move) {
-            var Y = this.props.itState.mouseY - this.state.initPositionY + this.state.offsetY;
-            var X = this.props.itState.mouseX - this.state.initPositionX;
-            this.props.sortToDoList(it, X, Y)
         }
     },
     render: function() {
-        if (this.state.move == true)
-            console.log(this.props.data.id)
-        return (<div>
+        return (<li>
         <div onMouseDown={this.mouseDown} style={this.state.move?this.moveWithMouse():this.inTheLine()}>{this.props.data.name}</div>
         <div style={this.state.move?this.inTheLine():null}></div>
-        </div>)
+        </li>)
     }
 });
