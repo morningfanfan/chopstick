@@ -100,30 +100,52 @@ export var Form = React.createClass({
     findChidrenWhoIsMoving: function() {
         var index = -1
         this.state.toDoList.map(function(it) {
-            if (it.move) {
-                var index = it.index
-            }
-        })
-        console.log(index)
-            //  console.log(this.state.toDoList)
+                if (it.move) {
+                    index = it.index
+                }
+            })
+            //console.log(index)
+            // console.log(this.state.toDoList)
         return index
     },
     exchange: function(a, b) {
-        console.log(this.state.click)
-        console.log(a)
-            //console.log(this.state.toDoList)
-            //交换除index以外的内容
-        var toDoList = this.state.toDoList
+        //交换除index以外的内容
         var indexA = this.state.toDoList[a].index
         var indexB = this.state.toDoList[b].index
-        var tmp = toDoList[a]
-        toDoList[a] = toDoList[b]
-        toDoList[b] = tmp
-        toDoList[a].index = indexA
-        toDoList[b].index = indexB
-        this.setState({
-            toDoList: toDoList,
+        var tmp = this.state.toDoList[a]
+        var newData = update(this.state, {
+            toDoList: {
+                [a]: {
+                    $set: this.state.toDoList[b]
+                }
+            }
         })
+        var newData = update(newData, {
+            toDoList: {
+                [b]: {
+                    $set: tmp
+                }
+            }
+        })
+        var newData = update(newData, {
+            toDoList: {
+                [a]: {
+                    index: {
+                        $set: indexA
+                    }
+                }
+            }
+        })
+        var newData = update(newData, {
+            toDoList: {
+                [b]: {
+                    index: {
+                        $set: indexB
+                    }
+                }
+            }
+        })
+        this.setState(newData)
 
     },
     a: function(e, X) {
@@ -192,32 +214,57 @@ export var Form = React.createClass({
     },
     changeFatherMoveState: function(id) {
         var index = this.findChidrenById(id)
-        console.log(index)
         var newData = update(this.state, {
             toDoList: {
-                index: {
+                [index]: {
                     move: {
                         $set: true
                     }
                 }
             },
-            click: true
+        })
+        var newData = update(newData, {
+            click: {
+                $set: true
+            }
         })
         this.setState(newData)
         this.init()
     },
     mouseUp: function() {
         //all move into false
-        var i = 0
-        var toDoList = this.state.toDoList
-        for (i = 0; i < toDoList.length; i++) {
-            toDoList[i].move = false
-        }
-        this.setState({
-            offsetIndent: 0,
-            toDoList: toDoList,
-            click: false
+        console.log("mouse up")
+        var newData = update(this.state, {
+            toDoList: {
+                [0]: {
+                    move: {
+                        $set: false
+                    }
+                }
+            }
         })
+        for (var i = 1; i < this.state.toDoList.length; i++) {
+            var newData = update(newData, {
+                toDoList: {
+                    [i]: {
+                        move: {
+                            $set: false
+                        }
+                    }
+                },
+            })
+        }
+        var newData = update(newData, {
+            offsetIndent: {
+                $set: 0
+            }
+        })
+        var newData = update(newData, {
+            click: {
+                $set: false
+            }
+        })
+        this.setState(newData)
     },
     mouseMove: function(e) {
         this.setState({
@@ -237,7 +284,9 @@ export var Form = React.createClass({
         })
     },
     distanceCount: function() {
+        //console.log("count")
         if (this.state.initPositionX) {
+            console.log("exchange happened")
             var Y = this.state.itState.mouseY - this.state.initPositionY //+ this.state.offsetY;
             var X = this.state.itState.mouseX - this.state.initPositionX;
             this.sortToDoList(X, Y)
@@ -247,7 +296,6 @@ export var Form = React.createClass({
         return <TodoElement itState={this.state.itState} data={it} changeFatherMoveState={this.changeFatherMoveState}/>
     },
     render: function() {
-        console.log(this.state.click)
         return <ul onMouseMove={this.mouseMove} onMouseUp={this.mouseUp}>{this.state.toDoList.map(this.eachElement)}</ul>
     }
 })
