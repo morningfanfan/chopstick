@@ -80,7 +80,7 @@ var result = [{
 var i = 40 //indent danwei
 var h = 50 //height danwei
 var oneMove = 4
-var oneHeight = 1
+var oneHeight = 0.5
 export var Form = React.createClass({
     getInitialState: function() {
         return {
@@ -100,12 +100,10 @@ export var Form = React.createClass({
     findChidrenWhoIsMoving: function() {
         var index = -1
         this.state.toDoList.map(function(it) {
-                if (it.move) {
-                    index = it.index
-                }
-            })
-            //console.log(index)
-            // console.log(this.state.toDoList)
+            if (it.move) {
+                index = it.index
+            }
+        })
         return index
     },
     exchange: function(a, b) {
@@ -150,8 +148,6 @@ export var Form = React.createClass({
     },
     a: function(e, X) {
         var index = this.findChidrenWhoIsMoving()
-            //console.log(index)
-            //console.log(this.state.toDoList)
         var n = parseInt((X + (i / oneMove)) / i)
         var max = this.state.toDoList[index - 1].indent / i - this.state.toDoList[index].indent / i + 1 //meikaolvshouwei
         max > 0 ? (max >= n ?
@@ -232,8 +228,6 @@ export var Form = React.createClass({
         this.init()
     },
     mouseUp: function() {
-        //all move into false
-        console.log("mouse up")
         var newData = update(this.state, {
             toDoList: {
                 [0]: {
@@ -284,19 +278,17 @@ export var Form = React.createClass({
         })
     },
     distanceCount: function() {
-        //console.log("count")
         if (this.state.initPositionX) {
-            console.log("exchange happened")
             var Y = this.state.itState.mouseY - this.state.initPositionY //+ this.state.offsetY;
             var X = this.state.itState.mouseX - this.state.initPositionX;
             this.sortToDoList(X, Y)
         }
     },
     eachElement: function(it) {
-        return <TodoElement itState={this.state.itState} data={it} changeFatherMoveState={this.changeFatherMoveState}/>
+        return <TodoElement key={it.id} itState={this.state.itState} data={it} changeFatherMoveState={this.changeFatherMoveState}/>
     },
     render: function() {
-        return <ul onMouseMove={this.mouseMove} onMouseUp={this.mouseUp}>{this.state.toDoList.map(this.eachElement)}</ul>
+        return <div onMouseMove={this.mouseMove} onMouseUp={this.mouseUp}>{this.state.toDoList.map(this.eachElement)}</div>
     }
 })
 
