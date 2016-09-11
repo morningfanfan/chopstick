@@ -80,7 +80,7 @@ var result = [{
 var i = 40 //indent danwei
 var h = 50 //height danwei
 var oneMove = 4
-var oneHeight = 0.5
+var oneHeight = 1
 export var Form = React.createClass({
     getInitialState: function() {
         return {
@@ -185,14 +185,23 @@ export var Form = React.createClass({
         var index = this.findChidrenWhoIsMoving()
         if (Y < -h / oneHeight && index != 0) {
             this.exchange(index, index - 1)
+            this.setState({
+                initPositionX: this.state.itState.mouseX,
+                initPositionY: this.state.itState.mouseY
+            })
         }
         if (Y > h / oneHeight && index != this.state.toDoList.length - 1) {
             this.exchange(index, index + 1)
+            this.setState({
+                initPositionX: this.state.itState.mouseX,
+                initPositionY: this.state.itState.mouseY
+            })
         }
     },
     componentDidUpdate: function(prevprops, prevstate) {
         if (prevstate.offsetIndent !== this.state.offsetIndent) {
             var index = this.findChidrenWhoIsMoving()
+            console.log(index)
             var toDoList = this.state.toDoList
             toDoList[index].indent = toDoList[index].indent + this.state.offsetIndent
             this.setState({
@@ -274,7 +283,7 @@ export var Form = React.createClass({
     init: function() {
         this.setState({
             initPositionX: this.state.itState.mouseX,
-            initPositionY: this.state.itState.mouseY,
+            initPositionY: this.state.itState.mouseY
         })
     },
     distanceCount: function() {
