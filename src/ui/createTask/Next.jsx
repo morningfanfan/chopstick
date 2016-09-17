@@ -30,25 +30,19 @@ export var Next = React.createClass({
             });
         }
     },
-    handleClick: function(e) {
-        if (e == 1) {
-            this.setState({
-                page: 2
-            });
-        };
-        if (e == 2) {
-            this.setState({
-                page: 3
-            });
-        };
-        this.props.callbackParent(this.state.page);
+    handleClick: function(q) {
+        if (q == "slide")
+            this.props.callbackParent(this.props.data.slideTo);
+        if (q == "submit") {}
+        ///////////////
     },
     render: function() {
         var nextStyle = {
-            width: "530px",
-            height: "70px",
-            backgroundColor: this.state.noteHover ? "rgb(2,228,209)" : "#00d4c3",
-            color: "#fff",
+            width: this.state.noteHover ? "528px" : "530px",
+            height: this.state.noteHover ? "67px" : "70px",
+            backgroundColor: this.state.noteHover ? this.props.data.ifNoteHover : this.props.data.ifNoteNotHover,
+            color: this.state.noteHover ? this.props.data.ifNoteNotHover : "#fff",
+            border: this.state.noteHover ? "1px solid" : "none",
             fontSize: "20px",
             fontFamily: "Lato,Arial,serif",
             fontWeight: "bold",
@@ -63,7 +57,7 @@ export var Next = React.createClass({
         var submitStyle = {
             width: "70px",
             height: "70px",
-            backgroundColor: this.state.submitHover ? "#42a39b" : "rgb(54,135,128)",
+            backgroundColor: this.state.submitHover ? this.props.data.ifSubmitHover : this.props.data.ifSubmitNotHover,
             float: "left"
         };
         var imgStyle = {
@@ -79,8 +73,8 @@ export var Next = React.createClass({
         };
 
         return <div>
-        <div style={submitStyle} onClick={this.handleClick.bind(this,2)} onMouseOver={this.changeColor2.bind(this,1)} onMouseOut={this.changeColor2.bind(this,2)}><img style={submitImgStyle} src="./statics/img/yes.png"></img></div>
-        <div style={nextStyle} onClick={this.handleClick.bind(this,1)} onMouseOver={this.changeColor1.bind(this,1)} onMouseOut={this.changeColor1.bind(this,2)}>OR ADD SOME NOTE
+        <div style={submitStyle} onClick={this.handleClick.bind(this,this.props.data.clickLeftButton)} onMouseOver={this.changeColor2.bind(this,1)} onMouseOut={this.changeColor2.bind(this,2)}><img style={submitImgStyle} src={this.props.data.imgSrc}></img></div>
+        <div style={nextStyle} onClick={this.handleClick.bind(this,this.props.data.clickRightButton)} onMouseOver={this.changeColor1.bind(this,1)} onMouseOut={this.changeColor1.bind(this,2)}>{this.props.data.word}
         <img style={imgStyle} src="./statics/img/arrow.png"></img>
         </div></div>
     }

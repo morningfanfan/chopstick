@@ -1,6 +1,11 @@
 import React from "react";
 
 export var Content = React.createClass({
+    createTag: function(e) {
+        if (e.keyCode == 13) {
+            console.log("hah")
+        }
+    },
     render: function() {
         var informationOutStyle = {
             width: "419px",
@@ -57,6 +62,22 @@ export var Content = React.createClass({
             lineHeight: "60px",
             color: "rgb(74,83,116)"
         };
+        var inputStyle1 = {
+            border: "0",
+            outline: "medium",
+            backgroundColor: "inherit",
+            fontSize: "20px",
+            width: "250px",
+            marginLeft: "10px"
+        };
+        var inputStyle2 = {
+            border: "0",
+            outline: "medium",
+            backgroundColor: "inherit",
+            fontSize: "20px",
+            width: "250px",
+            marginLeft: "18px"
+        };
         var numberStyle = {
             fontSize: "20px",
             fontFamily: "Lato,Arial,serif",
@@ -70,8 +91,12 @@ export var Content = React.createClass({
         return (<div style={informationOutStyle}>
         <div style={_.extend(informationInnerLeftStyle,numberStyle)}>1</div>
         <div style={informationInnerRightStyle}>
-        <div style={_.extend(informationInnerTopStyle,textStyle)}><img style={imgStyle} src="./statics/img/nn.png"></img>name</div>
-        <div style={_.extend(informationInnerBottomStyle,textStyle)}><img style={imgStyle} src="./statics/img/tt.png"></img>tags</div>
+        <div style={_.extend(informationInnerTopStyle,textStyle)}><img style={imgStyle} src="./statics/img/nn.png"></img>name
+        <input type="text" autoFocus style={inputStyle1}></input>
+        </div>
+        <div style={_.extend(informationInnerBottomStyle,textStyle)}><img style={imgStyle} src="./statics/img/tt.png"></img>tags
+        <input type="text" style={inputStyle2} onKeyPress={this.createTag}></input>
+        </div>
         </div></div>);
     }
 });

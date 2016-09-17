@@ -17,7 +17,7 @@ export var Container = React.createClass({
             width: "600px",
             height: "600px",
             margin: "0 auto",
-            visibility: "hidden"
+            overflow: "hidden"
         };
         var smallStyle = {
             width: "100%",

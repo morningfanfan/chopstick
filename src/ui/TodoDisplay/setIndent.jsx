@@ -201,7 +201,6 @@ export var Form = React.createClass({
     componentDidUpdate: function(prevprops, prevstate) {
         if (prevstate.offsetIndent !== this.state.offsetIndent) {
             var index = this.findChidrenWhoIsMoving()
-            console.log(index)
             var toDoList = this.state.toDoList
             toDoList[index].indent = toDoList[index].indent + this.state.offsetIndent
             this.setState({
@@ -301,4 +300,4 @@ export var Form = React.createClass({
     }
 })
 
-ReactDOM.render(<Form/>, document.getElementById("content"));
+ReactDOM.render(<Form/>, document.getElementById("content1"));

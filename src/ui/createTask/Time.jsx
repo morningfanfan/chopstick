@@ -1,8 +1,30 @@
 import React from "react";
+import {
+    TimeChooseBox
+} from "./TimeChooseBox";
 
 export var Time = React.createClass({
+    getInitialState: function() {
+        return {
+            openTop: false,
+            openBottom: false
+        }
+    },
+    open: function(e) {
+        if (e == "top") {
+            this.setState({
+                openTop: true,
+                openBottom: false
+            })
+        }
+        if (e == "bottom") {
+            this.setState({
+                openTop: false,
+                openBottom: true
+            })
+        }
+    },
     render: function() {
-
         var timeFirstStyle = {
             width: "419px",
             height: "40px",
@@ -110,9 +132,18 @@ export var Time = React.createClass({
         return (<div><div style={timeFirstStyle}>2</div>
         <div style={positionBox}>
         <div style={_.extend(line1Style,lineStyle)}></div><div style={_.extend(line2Style,lineStyle)}></div>
-        <div style={_.extend(timeSecondStyle,startTimeStyle)}><img style={img1Style} src="./statics/img/time.png"></img>from<img style={imgdown1Style} src="./statics/img/down.png"></img></div>
-        <div style={_.extend(timeSecondStyle,endTimeStyle)}><img style={img2Style} src="./statics/img/time.png"></img>to<img style={imgdown2Style} src="./statics/img/down.png"></img></div>
+        <div style={_.extend(timeSecondStyle,startTimeStyle)}>
+        <img style={img1Style} src="./statics/img/time.png"></img>from
+        <img style={imgdown1Style} onClick={this.open.bind(this,"top")} src="./statics/img/down.png"></img>
+        <TimeChooseBox />
+        </div>
+        <div style={_.extend(timeSecondStyle,endTimeStyle)}>
+        <img style={img2Style} src="./statics/img/time.png"></img>to
+        <img style={imgdown2Style} onClick={this.open.bind(this,"bottom")} src="./statics/img/down.png"></img>
+        <TimeChooseBox />
+        </div>
         </div>
         </div>)
     }
 });
+<div></div>
