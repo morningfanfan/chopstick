@@ -33,6 +33,7 @@ export var Priority = React.createClass({
                 })
             }
         }
+        this.props.returnValue("priority", q)
     },
     mouseOver: function(q) {
         if ((this.state.click && q != this.state.beClicked) || (!this.state.click)) {
@@ -66,7 +67,7 @@ export var Priority = React.createClass({
             fontSize: "20px",
             fontFamily: "Lato, Arial, serif",
             fontWeight: "bold",
-            fontStyle: "oblique",
+            fontStyle: "italic",
             textAlign: "center",
             lineHeight: "40px"
         };
@@ -98,7 +99,7 @@ export var Priority = React.createClass({
             textAlign: "center"
         };
         var imgStyle = {
-            marginLeft: "30px",
+            marginLeft: "40px",
             marginTop: "10px",
             width: "19px",
             height: "19px",

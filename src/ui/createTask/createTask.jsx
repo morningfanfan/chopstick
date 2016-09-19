@@ -11,6 +11,46 @@ import {
 
 
 export var Container = React.createClass({
+    returnValue: function(who, value) {
+        switch (who) {
+            case "type":
+                this.setState({
+                    type: value
+                })
+                break;
+            case "name":
+                this.setState({
+                    name: value
+                })
+                break;
+            case "tag":
+                this.setState({
+                    tag: value
+                })
+                break;
+            case "startTime":
+                this.setState({
+                    startTime: value
+                })
+                break;
+            case "endTime":
+                this.setState({
+                    endTime: value
+                })
+                break;
+            case "priority":
+                this.setState({
+                    priority: value
+                })
+                break;
+            case "note":
+                this.setState({
+                    note: value
+                })
+                break;
+            case "submit":
+        }
+    }，
     render: function() {
         var wholeStyle = {
             boxShadow: "0 0 20px rgba(74,83,116,0.8)",
@@ -41,9 +81,9 @@ export var Container = React.createClass({
         <div style={smallStyle}>
         <div style={padding}>
         <div style={smallerStyle}>
-        <SlideToggle/>
+        <SlideToggle returnValue={this.returnValue}/>
         </div></div></div>
-        <SlidePage/>
+        <SlidePage returnValue={this.returnValue}/>
         </div>)
     }
 });

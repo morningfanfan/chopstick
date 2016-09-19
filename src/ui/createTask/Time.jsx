@@ -39,7 +39,7 @@ export var Time = React.createClass({
             fontSize: "20px",
             fontFamily: "Lato, Arial, serif",
             fontWeight: "bold",
-            fontStyle: "oblique",
+            fontStyle: "italic",
             textAlign: "left",
             textIndent: "15px",
             lineHeight: "40px"
@@ -135,15 +135,14 @@ export var Time = React.createClass({
         <div style={_.extend(timeSecondStyle,startTimeStyle)}>
         <img style={img1Style} src="./statics/img/time.png"></img>from
         <img style={imgdown1Style} onClick={this.open.bind(this,"top")} src="./statics/img/down.png"></img>
-        <TimeChooseBox />
+        <TimeChooseBox returnValue={this.props.returnValue}/>
         </div>
         <div style={_.extend(timeSecondStyle,endTimeStyle)}>
         <img style={img2Style} src="./statics/img/time.png"></img>to
         <img style={imgdown2Style} onClick={this.open.bind(this,"bottom")} src="./statics/img/down.png"></img>
-        <TimeChooseBox />
+        <TimeChooseBox returnValue={this.props.returnValue}/>
         </div>
         </div>
         </div>)
     }
 });
-<div></div>

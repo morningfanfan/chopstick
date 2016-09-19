@@ -1,10 +1,50 @@
 import React from "react";
 
 export var Content = React.createClass({
-    createTag: function(e) {
-        if (e.keyCode == 13) {
-            console.log("hah")
+    getInitialState: function() {
+        return {
+            tagValue: [],
+            createTag: false
         }
+    },
+    pressEnter: function(e) {
+        if (e.keyCode == 13 || e.which == 13) {
+            var tagValue = this.state.tagValue;
+            tagValue.push(this.refs.tag.tagValue)
+            this.setState({
+                tagValue: tagValue,
+                createTag: true
+            })
+        }
+    },
+    createTag: function() {
+        if (this.state.createTag) {
+            var tagStyle = {
+                width: "10px",
+                height: "10px",
+                backgroundColor: "red",
+                float: "left"
+            }
+            var i = 1
+            var why = this.state.tagValue.map(function(each) {
+                console.log("au")
+                i = i + 1
+                var heng = <div key={i} style={tagStyle}>{each}</div>
+                console.log(heng)
+                return heng
+            })
+            return why
+            console.log(why)
+        }
+    },
+    returnValue: function(who, value) {
+        this.props.returnValue(who, value)
+    },
+    componentDidUpdate: function(prevprops, prevstate) {
+        if (!prevstate.createTag && this.state.createTag)
+            this.setState({
+                createTag: false
+            })
     },
     render: function() {
         var informationOutStyle = {
@@ -82,7 +122,7 @@ export var Content = React.createClass({
             fontSize: "20px",
             fontFamily: "Lato,Arial,serif",
             fontWeight: "bold",
-            fontStyle: "oblique",
+            fontStyle: "italic",
             textAlign: "left",
             textIndent: "15px",
             lineHeight: "120px",
@@ -92,10 +132,11 @@ export var Content = React.createClass({
         <div style={_.extend(informationInnerLeftStyle,numberStyle)}>1</div>
         <div style={informationInnerRightStyle}>
         <div style={_.extend(informationInnerTopStyle,textStyle)}><img style={imgStyle} src="./statics/img/nn.png"></img>name
-        <input type="text" autoFocus style={inputStyle1}></input>
+        <input type="text" autoFocus style={inputStyle1} ref="name" onBlur={this.returnValue.bind(this,"name",refs.name.value)}></input>
         </div>
         <div style={_.extend(informationInnerBottomStyle,textStyle)}><img style={imgStyle} src="./statics/img/tt.png"></img>tags
-        <input type="text" style={inputStyle2} onKeyPress={this.createTag}></input>
+        {this.createTag()} 
+        <input type="text" style={inputStyle2} onBlur={this.returnValue.bind(this,"tag",this.state.tagValue)} onKeyPress={this.pressEnter} ref="tag"></input>
         </div>
         </div></div>);
     }

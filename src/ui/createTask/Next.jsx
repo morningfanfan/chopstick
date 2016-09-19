@@ -38,11 +38,10 @@ export var Next = React.createClass({
     },
     render: function() {
         var nextStyle = {
-            width: this.state.noteHover ? "528px" : "530px",
-            height: this.state.noteHover ? "67px" : "70px",
+            width: "530px",
+            height: "70px",
             backgroundColor: this.state.noteHover ? this.props.data.ifNoteHover : this.props.data.ifNoteNotHover,
-            color: this.state.noteHover ? this.props.data.ifNoteNotHover : "#fff",
-            border: this.state.noteHover ? "1px solid" : "none",
+            color: "#fff",
             fontSize: "20px",
             fontFamily: "Lato,Arial,serif",
             fontWeight: "bold",
@@ -51,7 +50,7 @@ export var Next = React.createClass({
             lineHeight: "70px",
             marginTop: "57px",
             position: "relative",
-            textIndent: "-70px",
+            textIndent: "-110px",
             left: "70px"
         };
         var submitStyle = {

@@ -65,12 +65,12 @@ export var SlidePage = React.createClass({
         }
         return <Motion defaultStyle={{x: 0}} style={{x: spring(this.state.slideLeft ? 600 : 0)}}>
         {({x}) =><div><div style={{left:x,position:"relative"}}>
-                        <Content/>
-                        <Time/>
-                        <Priority/>
-                        <Next callbackParent={this.callbackParent} data={data}/>
-                        </div><div style={{left:x-600,bottom:"430px",position:"relative"}}>
-                        <Note callbackParent={this.callbackParent}/>
+                        <Content returnValue={this.props.returnValue}/>
+                        <Time returnValue={this.props.returnValue}/>
+                        <Priority returnValue={this.props.returnValue}/>
+                        <Next callbackParent={this.callbackParent} data={data} returnValue={this.props.returnValue}/>
+                        </div><div style={{left:x-600,bottom:"480px",position:"relative"}}>
+                        <Note callbackParent={this.callbackParent} returnValue={this.props.returnValue}/>
                         </div>
                         </div>
         
