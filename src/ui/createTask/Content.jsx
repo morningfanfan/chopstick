@@ -3,16 +3,16 @@ import React from "react";
 export var Content = React.createClass({
     getInitialState: function() {
         return {
-            tagValue: [],
+            tagValues: [],
             createTag: false
         }
     },
     pressEnter: function(e) {
         if (e.keyCode == 13 || e.which == 13) {
-            var tagValue = this.state.tagValue;
-            tagValue.push(this.refs.tag.tagValue)
+            var tagValues = this.state.tagValues;
+            tagValues.push(this.refs.tag.tagValues)
             this.setState({
-                tagValue: tagValue,
+                tagValues: tagValues,
                 createTag: true
             })
         }
@@ -25,21 +25,17 @@ export var Content = React.createClass({
                 backgroundColor: "red",
                 float: "left"
             }
-            var i = 1
-            var why = this.state.tagValue.map(function(each) {
-                console.log("au")
-                i = i + 1
-                var heng = <div key={i} style={tagStyle}>{each}</div>
-                console.log(heng)
+            var why = this.state.tagValues.map(function(elem, idx) {
+                console.log("in map:", idx, elem, this.state.tagValues)
+                var heng = <div key={idx} style={tagStyle}>{elem}</div>
                 return heng
-            })
+            }.bind(this))
             return why
-            console.log(why)
         }
     },
     returnValue: function(who) {
         if (who == "tag") {
-            this.props.returnValue(who, this.state.tagValue)
+            this.props.returnValue(who, this.state.tagValues)
         } else
             this.props.returnValue(who, this.refs[who].value)
     },

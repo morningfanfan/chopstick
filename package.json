@@ -23,7 +23,7 @@
         "jquery": "^3.1.0",
         "lodash": "^4.14.1",
         "moment": "^2.15.0",
-        "react": "^15.3.0",
+        "react": "^15.3.1",
         "react-addons-update": "^15.3.1",
         "react-datetime": "git://github.com/morningfanfan/react-datetime",
         "react-dom": "^15.3.0",
