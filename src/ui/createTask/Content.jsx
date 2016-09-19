@@ -37,8 +37,11 @@ export var Content = React.createClass({
             console.log(why)
         }
     },
-    returnValue: function(who, value) {
-        this.props.returnValue(who, value)
+    returnValue: function(who) {
+        if (who == "tag") {
+            this.props.returnValue(who, this.state.tagValue)
+        } else
+            this.props.returnValue(who, this.refs[who].value)
     },
     componentDidUpdate: function(prevprops, prevstate) {
         if (!prevstate.createTag && this.state.createTag)
@@ -132,11 +135,11 @@ export var Content = React.createClass({
         <div style={_.extend(informationInnerLeftStyle,numberStyle)}>1</div>
         <div style={informationInnerRightStyle}>
         <div style={_.extend(informationInnerTopStyle,textStyle)}><img style={imgStyle} src="./statics/img/nn.png"></img>name
-        <input type="text" autoFocus style={inputStyle1} ref="name" onBlur={this.returnValue.bind(this,"name",refs.name.value)}></input>
+        <input type="text" autoFocus style={inputStyle1} ref="name" onBlur={this.returnValue.bind(this,"name")}></input>
         </div>
         <div style={_.extend(informationInnerBottomStyle,textStyle)}><img style={imgStyle} src="./statics/img/tt.png"></img>tags
         {this.createTag()} 
-        <input type="text" style={inputStyle2} onBlur={this.returnValue.bind(this,"tag",this.state.tagValue)} onKeyPress={this.pressEnter} ref="tag"></input>
+        <input type="text" style={inputStyle2} onBlur={this.returnValue.bind(this,"tag")} onKeyPress={this.pressEnter} ref="tag"></input>
         </div>
         </div></div>);
     }

@@ -8,10 +8,14 @@ import {
     SlidePage
 } from "./SlidePage";
 
-
-
 export var Container = React.createClass({
+    getInitialState: function() {
+        return {
+            name: null
+        }
+    },
     returnValue: function(who, value) {
+        console.log(this.state)
         switch (who) {
             case "type":
                 this.setState({
@@ -49,8 +53,9 @@ export var Container = React.createClass({
                 })
                 break;
             case "submit":
+                break
         }
-    }，
+    },
     render: function() {
         var wholeStyle = {
             boxShadow: "0 0 20px rgba(74,83,116,0.8)",
