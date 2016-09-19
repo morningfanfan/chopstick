@@ -12,70 +12,100 @@ var result = [{
     id: 0,
     index: 0,
     indent: 40,
-    move: false
+    move: false,
+    priority: 1,
+    startTime: "2013.6.19 5:30pm",
+    endTime: "2013.11.11 1:00am"
 }, {
     name: "project1",
     type: "project",
     id: 1,
     index: 1,
     indent: 40,
-    move: false
+    move: false,
+    priority: 1,
+    startTime: "2013.6.19 5:30pm",
+    endTime: "2013.11.11 1:00am"
 }, {
     name: "task2",
     type: "task",
     id: 2,
     index: 2,
     indent: 80,
-    move: false
+    move: false,
+    priority: 1,
+    startTime: "2013.6.19 5:30pm",
+    endTime: "2013.11.11 1:00am"
 }, {
     name: "project2",
     type: "project",
     id: 3,
     index: 3,
     indent: 80,
-    move: false
+    move: false,
+    priority: 1,
+    startTime: "2013.6.19 5:30pm",
+    endTime: "2013.11.11 1:00am"
 }, {
     name: "task4",
     type: "task",
     id: 4,
     index: 4,
     indent: 120,
-    move: false
+    move: false,
+    priority: 1,
+    startTime: "2013.6.19 5:30pm",
+    endTime: "2013.11.11 1:00am"
 }, {
     name: "task5",
     type: "task",
     id: 5,
     index: 5,
     indent: 120,
-    move: false
+    move: false,
+    priority: 1,
+    startTime: "2013.6.19 5:30pm",
+    endTime: "2013.11.11 1:00am"
 }, {
     name: "task3",
     type: "task",
     id: 6,
     index: 6,
     indent: 120,
-    move: false
+    move: false,
+    priority: 1,
+    startTime: "2013.6.19 5:30pm",
+    endTime: "2013.11.11 1:00am"
 }, {
     name: "project3",
     type: "project",
     id: 7,
     index: 7,
     indent: 160,
-    move: false
+    move: false,
+    priority: 1,
+    startTime: "2013.6.19 5:30pm",
+    endTime: "2013.11.11 1:00am"
 }, {
     name: "project2",
     type: "project",
     id: 8,
     index: 8,
     indent: 40,
-    move: false
+    move: false,
+    priority: 1,
+    startTime: "2013.6.19 5:30pm",
+    endTime: "2013.11.11 1:00am"
 }, {
     name: "task4",
     type: "task",
     id: 9,
     index: 9,
     indent: 40,
-    move: false
+    move: false,
+    priority: 1,
+    startTime: "2013.6.19 5:30pm",
+    endTime: "2013.11.11 1:00am"
 }];
 var i = 40 //indent danwei
 var h = 50 //height danwei
