@@ -15,7 +15,8 @@ var result = [{
     move: false,
     priority: 1,
     startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am"
+    endTime: "2013.11.11 1:00am",
+    tag: ["xx", "hh", "qqqqq"]
 }, {
     name: "project1",
     type: "project",
@@ -25,7 +26,8 @@ var result = [{
     move: false,
     priority: 1,
     startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am"
+    endTime: "2013.11.11 1:00am",
+    tag: ["xx", "hh", "qqqqq"]
 }, {
     name: "task2",
     type: "task",
@@ -35,7 +37,8 @@ var result = [{
     move: false,
     priority: 1,
     startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am"
+    endTime: "2013.11.11 1:00am",
+    tag: ["xx", "hh", "qqqqq"]
 }, {
     name: "project2",
     type: "project",
@@ -45,7 +48,8 @@ var result = [{
     move: false,
     priority: 1,
     startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am"
+    endTime: "2013.11.11 1:00am",
+    tag: ["xx", "hh", "qqqqq"]
 }, {
     name: "task4",
     type: "task",
@@ -55,7 +59,8 @@ var result = [{
     move: false,
     priority: 1,
     startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am"
+    endTime: "2013.11.11 1:00am",
+    tag: ["xxxxxx", "hhxxxx", "qqqqxq"]
 }, {
     name: "task5",
     type: "task",
@@ -65,7 +70,8 @@ var result = [{
     move: false,
     priority: 1,
     startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am"
+    endTime: "2013.11.11 1:00am",
+    tag: ["xx", "hh", "qqqqq"]
 }, {
     name: "task3",
     type: "task",
@@ -75,7 +81,8 @@ var result = [{
     move: false,
     priority: 1,
     startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am"
+    endTime: "2013.11.11 1:00am",
+    tag: ["xx", "hh", "qqqqq"]
 }, {
     name: "project3",
     type: "project",
@@ -85,7 +92,8 @@ var result = [{
     move: false,
     priority: 1,
     startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am"
+    endTime: "2013.11.11 1:00am",
+    tag: ["xx", "hh", "qqqqq"]
 }, {
     name: "project2",
     type: "project",
@@ -95,7 +103,8 @@ var result = [{
     move: false,
     priority: 1,
     startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am"
+    endTime: "2013.11.11 1:00am",
+    tag: ["xx", "hh", "qqqqq"]
 }, {
     name: "task4",
     type: "task",
@@ -105,7 +114,8 @@ var result = [{
     move: false,
     priority: 1,
     startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am"
+    endTime: "2013.11.11 1:00am",
+    tag: ["xx", "hh", "qqqqq"]
 }];
 var i = 40 //indent danwei
 var h = 50 //height danwei

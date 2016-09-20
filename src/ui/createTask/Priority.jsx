@@ -33,7 +33,7 @@ export var Priority = React.createClass({
                 })
             }
         }
-        this.props.returnValue("priority", q)
+        this.props.returnValue("priority", q);
     },
     mouseOver: function(q) {
         if ((this.state.click && q != this.state.beClicked) || (!this.state.click)) {

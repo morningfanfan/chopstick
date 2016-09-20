@@ -1,25 +1,83 @@
 import React from "react";
-
+import update from 'react-addons-update';
 export var Content = React.createClass({
     getInitialState: function() {
         return {
             tagValues: [],
-            createTag: false
+            createTag: false,
+            deleteTag: [],
+            wordLength: 0
         }
     },
     pressEnter: function(e) {
         if (e.keyCode == 13 || e.which == 13) {
-            var tagValues = this.state.tagValues;
-            tagValues.push(this.refs.tag.value)
+            var verify = this.refs.tag.value.trim()
+            if (verify != "") {
+                var tagValues = this.state.tagValues;
+                tagValues.push(this.refs.tag.value)
+                this.setState({
+                    tagValues: tagValues,
+                    createTag: true,
+                    wordLength: this.state.wordLength + this.refs.tag.value.length
+                })
+            }
+            document.getElementById("inputForTag").value = ""
+        }
+    },
+    mouseAction: function(q, num) {
+        if (q == "over") {
+            var newData = update(this.state, {
+                deleteTag: {
+                    [num]: {
+                        $set: true
+                    }
+                }
+            })
+            this.setState(newData)
+        }
+        if (q == "out") {
+            var newData = update(this.state, {
+                deleteTag: {
+                    [num]: {
+                        $set: false
+                    }
+                }
+            })
+            this.setState(newData)
+        }
+        if (q == "click") {
+            var tagValues = this.state.tagValues
+            var deleteValue = tagValues.splice(num, 1)
             this.setState({
-                tagValues: tagValues,
-                createTag: true
+                wordLength: this.state.wordLength - deleteValue[0].length,
+                tagValues: tagValues
             })
         }
     },
     createTag: function() {
+        var that = this
         var why = this.state.tagValues.map(function(elem, idx) {
-            return <div key={idx} style={tagStyle}>{elem}</div>
+            var tagWidth = {
+                width: 20 + elem.length * 10 + "px"
+            }
+            var deleteStyle = {
+                height: "10px",
+                width: "10px",
+                backgroundColor: !that.state.deleteTag[idx] ? "green" : "red",
+                lineHeight: '5px',
+                color: 'white',
+                position: 'relative',
+                bottom: '30px',
+                left: 10 + elem.length * 10 + "px",
+                WebkitUserSelect: "none"
+            }
+            return <div key={idx} style={_.extend(tagWidth,tagStyle)}>{elem}
+            <div onMouseOver={that.mouseAction.bind(that,"over",idx)} 
+            onMouseOut={that.mouseAction.bind(that,"out",idx)} 
+            onClick={that.mouseAction.bind(that,"click",idx)} 
+            style={deleteStyle}>
+            X</div>
+            </div>
         })
         return why
     },
@@ -37,18 +95,39 @@ export var Content = React.createClass({
     },
     render: function() {
         let elems = this.createTag()
+        var inputLength = 270 - this.state.wordLength * 10 - this.state.tagValues.length * 30
+        var inputStyle2 = {
+            border: "0",
+            outline: "medium",
+            backgroundColor: "inherit",
+            fontSize: "20px",
+            width: this.state.wordLength == 0 ? "270px" : inputLength >= 30 ? inputLength + "px" : "0px",
+            margin: "16px 0 0 10px",
+            float: "left"
+        };
+        var maxLength = function() {
+            if (inputLength >= 30 && inputLength <= 70)
+                return (inputLength - 20) / 10
+            if (inputLength < 30)
+                return 0
+            else
+                return 6
+        }
         return (
             <div style={informationOutStyle}>
                 <div style={_.extend(informationInnerLeftStyle,numberStyle)}>1</div>
                 <div style={informationInnerRightStyle}>
                     <div style={_.extend(informationInnerTopStyle,textStyle)}>
                         <img style={imgStyle} src="./statics/img/nn.png"/>name
-                        <input type="text" autoFocus style={inputStyle1} ref="name" onBlur={this.returnValue.bind(this,"name")}/>
+                        <input id="inputForName" type="text" autoFocus style={inputStyle1} ref="name" onBlur={this.returnValue.bind(this,"name")}/>
                     </div>
                     <div style={_.extend(informationInnerBottomStyle,textStyle)}>
-                        <img style={imgStyle} src="./statics/img/tt.png"/>tags
+                        <img style={imgStyle} src="./statics/img/tt.png"/>
+                        <div style={{position:"absolute"}}>tags</div>
+                        <div style={{position:"absolute",left:"90px"}}>
                         {elems} 
-                        <input type="text" style={inputStyle2} onBlur={this.returnValue.bind(this,"tag")} onKeyPress={this.pressEnter} ref="tag"/>
+                        <input type="text" id="inputForTag" style={inputStyle2} onBlur={this.returnValue.bind(this,"tag")} onKeyPress={this.pressEnter} ref="tag" maxLength={maxLength()}/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -116,16 +195,8 @@ var inputStyle1 = {
     outline: "medium",
     backgroundColor: "inherit",
     fontSize: "20px",
-    width: "250px",
+    width: "270px",
     marginLeft: "10px"
-};
-var inputStyle2 = {
-    border: "0",
-    outline: "medium",
-    backgroundColor: "inherit",
-    fontSize: "20px",
-    width: "250px",
-    marginLeft: "18px"
 };
 var numberStyle = {
     fontSize: "20px",
@@ -138,8 +209,12 @@ var numberStyle = {
     color: "rgb(200,206,213)"
 };
 var tagStyle = {
-    width: "10px",
-    height: "10px",
-    backgroundColor: "red",
-    float: "left"
-}
+    height: "30px",
+    lineHeight: "30px",
+    backgroundColor: "black",
+    borderRadius: "15px",
+    float: "left",
+    textAlign: "center",
+    textIndent: "0",
+    margin: "14px 0 0 10px"
+};

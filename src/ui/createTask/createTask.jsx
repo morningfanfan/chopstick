@@ -15,7 +15,6 @@ export var Container = React.createClass({
         }
     },
     returnValue: function(who, value) {
-        console.log(this.state)
         switch (who) {
             case "type":
                 this.setState({

@@ -98,14 +98,16 @@ export var Time = React.createClass({
             top: "23px",
             left: "390px",
             width: "15px",
-            height: "15px"
+            height: "15px",
+            visibility: "hiddden"
         };
         var imgdown2Style = {
             position: "absolute",
             top: "77px",
             left: "390px",
             width: "15px",
-            height: "15px"
+            height: "15px",
+            visibility: "hidden"
         };
         var imgdown3Style = {
             position: "absolute",

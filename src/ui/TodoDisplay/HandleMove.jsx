@@ -6,8 +6,6 @@ import {
 } from "react-motion";
 import _ from "lodash";
 
-
-
 export var TodoElement = React.createClass({
     getInitialState: function() {
         return {
@@ -19,13 +17,13 @@ export var TodoElement = React.createClass({
     },
     moveWithMouse: function() {
         var taskStyle = {
-            backgroundColor: "#adc9f2",
+            backgroundColor: "#fefffe",
         };
         var projectStyle = {
-            backgroundColor: "#8cd2f2",
+            backgroundColor: "#fefffe",
         };
         var staticStyle = {
-            width: "500px",
+            width: "560px",
             height: "80px",
             position: "absolute",
             boxShadow: "0 0 20px rgb(132,131,131)",
@@ -41,16 +39,16 @@ export var TodoElement = React.createClass({
     },
     inTheLine: function() {
         var taskStyle = {
-            backgroundColor: "#adc9f2",
+            backgroundColor: "#fefffe",
         };
         var projectStyle = {
-            backgroundColor: "#8cd2f2",
+            backgroundColor: "#fefffe",
         };
         var fillStyle = {
             backgroundColor: "gray",
         };
         var moveStyle = {
-            width: "500px",
+            width: "560px",
             height: "80px",
             position: "relative",
             left: this.props.data.indent,
@@ -90,63 +88,84 @@ export var TodoElement = React.createClass({
                 return "./statics/img/high.png"
         }
     },
+    createTag: function() {
+        var why = this.props.data.tag.map(function(elem, idx) {
+            var tagWidth = {
+                width: 10 + elem.length * 10 + "px"
+            }
+            return <div key={idx} style={_.extend(tagWidth,tagStyle)}>{elem}
+            </div>
+        })
+        return why
+    },
     mouseOver: function() {
         this.setState({
             noteVisible: true
         })
     },
     render: function() {
-        var nameStyle = {
-            float: "left",
-            fontFamily: "cursive",
-            width: "420px",
-            color: "#312c2c",
-            borderBottom: "1px solid #2c2c2c",
-            marginTop: "12px",
-            paddingBottom: "5px",
-            fontSize: "23px"
-        }
-        var imgStyle = {
-            width: "19px",
-            height: "19px",
-            float: "left",
-            WebkitUserSelect: "none"
-        }
-        var tagStyle = {
-            float: "left",
-            fontFamily: "Arial",
-            color: "#312c2c",
-            marginTop: "5px"
-        }
-        var timeStyle = {
-            color: "gray",
-            float: "right",
-            fontFamily: "Arial",
-            fontStyle: "italic",
-            marginTop: "5px"
-        }
-        var moveInstructionStyle = {
-            width: "40px",
-            height: "40px",
-            backgroundColor: "#acbad7"
-        }
         var noteStyle = {
             visibility: this.state.noteVisible
         }
         return (<div>
         <input style={{float:"left"}}type="checkbox"/>
-        <img style={imgStyle} src={this.imgSrc()}></img>
         <div style={this.state.move?this.moveWithMouse():this.inTheLine()} onMouseOver={this.mouseOver}>
-        <div style={{float:"left"}}>
-        <div style={{height:"50px"}}><div style={nameStyle}>{this.props.data.name}</div>
+        <div style={{float:"left",width:"500px"}}>
+        <div style={{height:"50px"}}><div style={nameStyle}>
+        <div style={{float:"left"}}>{this.props.data.name}</div>
+        <img style={imgStyle} src={this.imgSrc()}></img>
         </div>
-        <div style={tagStyle}>TAGS</div>
+        </div>
+        <div>{this.createTag()}</div>
         <div style={timeStyle}>{this.props.data.startTime + "-" + this.props.data.endTime}</div></div>
         <div style={{float:"left"}}><div style={moveInstructionStyle} onMouseDown={this.mouseDown}></div>
         <div style={moveInstructionStyle} id="addtask"></div></div>
         <div style={noteStyle}>{this.props.data.note}</div>
-        </div>
-        <div style={this.state.move?this.inTheLine():null}></div> 
-        </div>)
+        </div> <
+            div style = {
+                this.state.move ? this.inTheLine() : null
+            } > < /div>  < /
+            div > )
     }
 });
+
+var nameStyle = {
+    float: "left",
+    fontFamily: "cursive",
+    width: "500px",
+    color: "#312c2c",
+    borderBottom: "1px solid #2c2c2c",
+    marginTop: "12px",
+    paddingBottom: "5px",
+    fontSize: "23px"
+}
+var imgStyle = {
+    width: "19px",
+    height: "19px",
+    float: "left",
+    WebkitUserSelect: "none",
+    margin: "7px 0 0 10px"
+}
+var timeStyle = {
+    color: "gray",
+    float: "right",
+    fontFamily: "Arial",
+    fontStyle: "italic",
+    margin: "5px 5px 0 0"
+}
+var moveInstructionStyle = {
+    width: "40px",
+    height: "40px",
+    backgroundColor: "#acbad7"
+}
+var tagStyle = {
+    height: "20px",
+    lineHeight: "15px",
+    backgroundColor: "#e1fdbc",
+    borderRadius: "10px",
+    float: "left",
+    textAlign: "center",
+    textIndent: "0",
+    marginTop: "5px",
+    color: "#72c964"
+};
