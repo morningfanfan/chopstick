@@ -5,6 +5,10 @@ import {
 } from "./HandleMove";
 import _ from "lodash";
 import update from 'react-addons-update';
+import {
+    Container
+} from "../createTask/createTask";
+import PubSub from "pubsub-js"
 
 var result = [{
     name: "task1",
@@ -118,14 +122,17 @@ var result = [{
     tag: ["xx", "hh", "qqqqq"]
 }];
 var i = 40 //indent danwei
-var h = 50 //height danwei
-var oneMove = 4
+var h = 80 //height danwei
+var oneMove = 1
 var oneHeight = 1
 export var Form = React.createClass({
     getInitialState: function() {
         return {
             toDoList: result,
-            offsetIndent: 0
+            offsetIndent: 0,
+            onCreate: false,
+            arrivingData: null,
+            beClick: 0
         }
     },
     findChidrenById: function(id) {
@@ -247,6 +254,31 @@ export var Form = React.createClass({
                 toDoList: toDoList
             })
         }
+        if (!prevstate.arrivingData && this.state.arrivingData) {
+            this.resort()
+        }
+    },
+    componentWillMount: function() {
+        PubSub.subscribe("done!", function(msg, data) {
+            try {
+                this.setState({
+                    arrivingData: data
+                })
+            } catch (e) {
+                console.log(e)
+            }
+        }.bind(this))
+        PubSub.subscribe("new!", function(msg, data) {
+            try {
+                PubSub.publish("hello!");
+                this.setState({
+                    beClick: this.state.toDoList.length - 1
+                })
+                console.log(this.state.toDoList.length - 1)
+            } catch (e) {
+                console.log(e)
+            }
+        }.bind(this))
     },
     sortToDoList: function(X, Y) {
         X > i / oneMove ?
@@ -332,12 +364,59 @@ export var Form = React.createClass({
             this.sortToDoList(X, Y)
         }
     },
+    callbackParent: function(index) {
+        PubSub.publish("hello!");
+        this.setState({
+            beClick: index
+        })
+    },
+    resort: function() {
+        var data = this.state.arrivingData
+        data.id = this.state.toDoList.length + 10;
+        data.move = false;
+        data.indent = this.state.toDoList[this.state.beClick].indent + i;
+        data.index = this.state.beClick + 1
+        var tmp = this.state.toDoList
+
+        tmp.splice(this.state.beClick + 1, 0, data)
+
+        for (let i = this.state.beClick; i < tmp.length - 2; i++) {
+            tmp[i + 2].index = tmp[i + 2].index + 1
+        }
+        this.setState({
+            toDoList: tmp,
+            arrivingData: false
+        })
+    },
     eachElement: function(it) {
-        return <TodoElement key={it.id} itState={this.state.itState} data={it} changeFatherMoveState={this.changeFatherMoveState}/>
+        return <TodoElement key={it.id} itState={this.state.itState} data={it} changeFatherMoveState={this.changeFatherMoveState} callbackParent={this.callbackParent} status={this.props.data.status}/>
     },
     render: function() {
-        return <div onMouseMove={this.mouseMove} onMouseUp={this.mouseUp}>{this.state.toDoList.map(this.eachElement)}</div>
+        var shelterStyle = {
+            backgroundColor: this.state.onCreate ? "#fff" : "none",
+            zIndex: "2",
+            opacity: "0.4"
+        }
+        return <div>
+        <div style={taskDisplayStyle} onMouseMove={this.mouseMove} onMouseUp={this.mouseUp}>
+        <div style={boderStyle}><i className="material-icons" style={{marginRight:"5px"}}>{this.props.data.icon}</i>{this.props.data.words}
+        </div>
+        {this.state.toDoList.map(this.eachElement)}</div>
+        <div style={shelterStyle}></div>
+        </div>
     }
 })
-
-ReactDOM.render(<Form/>, document.getElementById("content1"));
+var taskDisplayStyle = {
+    backgroundColor: "#fff",
+    position: "relative",
+    left: "200px",
+    top: "100px"
+}
+var boderStyle = {
+    width: "200px",
+    height: "30px",
+    marginBottom: "50px",
+    color: "#dcd4d4",
+    fontFamily: "fantasy",
+    fontSize: "30px"
+}

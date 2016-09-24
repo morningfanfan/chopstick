@@ -63,7 +63,7 @@ export var Content = React.createClass({
             var deleteStyle = {
                 height: "10px",
                 width: "10px",
-                backgroundColor: !that.state.deleteTag[idx] ? "green" : "red",
+                backgroundColor: !that.state.deleteTag[idx] ? "#7d9857" : "#ff7ca3",
                 lineHeight: '5px',
                 color: 'white',
                 position: 'relative',
@@ -92,6 +92,12 @@ export var Content = React.createClass({
             this.setState({
                 createTag: false
             })
+        if (!prevprops.shouldClearTag && this.props.shouldClearTag) {
+            this.setState({
+                tagValues: []
+            })
+            this.props.clearTagDone();
+        }
     },
     render: function() {
         let elems = this.createTag()
@@ -211,10 +217,11 @@ var numberStyle = {
 var tagStyle = {
     height: "30px",
     lineHeight: "30px",
-    backgroundColor: "black",
+    backgroundColor: "#e1fdbc",
     borderRadius: "15px",
     float: "left",
     textAlign: "center",
     textIndent: "0",
-    margin: "14px 0 0 10px"
+    margin: "14px 0 0 10px",
+    color: "#72c964"
 };

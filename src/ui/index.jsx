@@ -4,8 +4,18 @@ import {
     Container
 } from "./createTask/createTask";
 import {
-    Motion,
-    spring
-} from "react-motion";
+    Form
+} from "./TodoDisplay/setIndent";
+import {
+    Add
+} from "./TodoDisplay/add";
+
+var live = {
+    icon: "face",
+    words: "TO DO LIST",
+    status: "live"
+}
 
 ReactDOM.render((<Container/>), document.getElementById("content"));
+ReactDOM.render(<Form data={live}/>, document.getElementById("tasks"));
+ReactDOM.render(<Add/>, document.getElementById("add"));

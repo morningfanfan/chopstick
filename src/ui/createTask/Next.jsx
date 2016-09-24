@@ -33,8 +33,8 @@ export var Next = React.createClass({
     handleClick: function(q) {
         if (q == "slide")
             this.props.callbackParent(this.props.data.slideTo);
-        if (q == "submit") {}
-        ///////////////
+        if (q == "submit")
+            this.props.callbackParent("submit");
     },
     render: function() {
         var nextStyle = {
@@ -59,17 +59,7 @@ export var Next = React.createClass({
             backgroundColor: this.state.submitHover ? this.props.data.ifSubmitHover : this.props.data.ifSubmitNotHover,
             float: "left"
         };
-        var imgStyle = {
-            position: "relative",
-            left: "20px",
-            width: "15px",
-            height: "14px"
-        };
-        var submitImgStyle = {
-            margin: "20px",
-            width: "30px",
-            height: "30px"
-        };
+
 
         return <div>
         <div style={submitStyle} onClick={this.handleClick.bind(this,this.props.data.clickLeftButton)} onMouseOver={this.changeColor2.bind(this,1)} onMouseOut={this.changeColor2.bind(this,2)}><img style={submitImgStyle} src={this.props.data.imgSrc}></img></div>
@@ -78,3 +68,15 @@ export var Next = React.createClass({
         </div></div>
     }
 });
+
+var imgStyle = {
+    position: "relative",
+    left: "20px",
+    width: "15px",
+    height: "14px"
+};
+var submitImgStyle = {
+    margin: "20px",
+    width: "30px",
+    height: "30px"
+};

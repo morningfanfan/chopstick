@@ -38,6 +38,9 @@ export var SlidePage = React.createClass({
                 page: 2
             })
         }
+        if (e == "submit") {
+            this.props.closeCreateWindow()
+        }
     },
     componentDidUpdate: function(prevprops, prevstate) {
         if (prevstate.page == 1 && this.state.page == 2) {
@@ -48,6 +51,11 @@ export var SlidePage = React.createClass({
         if (prevstate.page == 2 && this.state.page == 1) {
             this.setState({
                 slideLeft: false
+            })
+        }
+        if (this.props.shouldClearTag) {
+            this.setState({
+                page: 1
             })
         }
     },
@@ -65,7 +73,7 @@ export var SlidePage = React.createClass({
         }
         return <Motion defaultStyle={{x: 0}} style={{x: spring(this.state.slideLeft ? 600 : 0)}}>
         {({x}) =><div><div style={{left:x,position:"relative"}}>
-                        <Content returnValue={this.props.returnValue}/>
+                        <Content returnValue={this.props.returnValue} shouldClearTag={this.props.shouldClearTag} clearTagDone={this.props.clearTagDone}/>
                         <Time returnValue={this.props.returnValue}/>
                         <Priority returnValue={this.props.returnValue}/>
                         <Next callbackParent={this.callbackParent} data={data} returnValue={this.props.returnValue}/>

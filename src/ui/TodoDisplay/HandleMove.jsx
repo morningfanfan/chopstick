@@ -12,7 +12,9 @@ export var TodoElement = React.createClass({
             move: false,
             init: false,
             offsetY: 0,
-            noteVisible: false
+            noteVisible: false,
+            deletelineDefault: this.props.status == "live" ? 0 : 700,
+            deleteline: this.props.status == "live" ? false : true
         }
     },
     moveWithMouse: function() {
@@ -23,12 +25,12 @@ export var TodoElement = React.createClass({
             backgroundColor: "#fefffe",
         };
         var staticStyle = {
-            width: "560px",
+            width: "563px",
             height: "80px",
             position: "absolute",
             boxShadow: "0 0 20px rgb(132,131,131)",
-            top: this.props.itState.mouseY,
-            left: this.props.itState.mouseX,
+            top: this.props.itState.mouseY - 220 + "px", //40+100+80=top(moveInstructionBottomStyle's heigt+setIndent'relative value)
+            left: this.props.itState.mouseX - 763 + "px", //740=563+200(div's width+setIndent'relative value)
             WebkitUserSelect: 'none',
             zIndex: "1000",
             opacity: "0.5"
@@ -48,7 +50,7 @@ export var TodoElement = React.createClass({
             backgroundColor: "gray",
         };
         var moveStyle = {
-            width: "560px",
+            width: "563px",
             height: "80px",
             position: "relative",
             left: this.props.data.indent,
@@ -78,6 +80,20 @@ export var TodoElement = React.createClass({
             })
         }
     },
+    componentDidUpdate: function() {
+        var checkbox = document.getElementById(this.props.data.id);
+        var deletelineWidth = document.getElementById("deleteline").style.width;
+        if (this.props.status == "live") {
+            if (checkbox.checked) {
+                this.setState({
+                    deleteline: true
+                })
+            }
+            if (deletelineWidth == 700) {
+                //fangruhuancun
+            }
+        }
+    },
     imgSrc: function() {
         switch (this.props.data.priority) {
             case 1:
@@ -99,33 +115,79 @@ export var TodoElement = React.createClass({
         return why
     },
     mouseOver: function() {
-        this.setState({
-            noteVisible: true
-        })
+        if (!this.state.move) {
+            this.setState({
+                noteVisible: true
+            })
+        }
     },
+    mouseOut: function() {
+        if (!this.state.move) {
+            this.setState({
+                noteVisible: false
+            })
+        }
+    },
+    mouseClick: function() {
+        this.props.callbackParent(this.props.data.index)
+    },
+
     render: function() {
         var noteStyle = {
-            visibility: this.state.noteVisible
+            visibility: this.state.noteVisible ? "visible" : "hidden",
+            position: "absolute",
+            left: "563px",
+            width: "100px",
+            height: "70px",
+            backgroundColor: "blue"
         }
-        return (<div>
-        <input style={{float:"left"}}type="checkbox"/>
-        <div style={this.state.move?this.moveWithMouse():this.inTheLine()} onMouseOver={this.mouseOver}>
-        <div style={{float:"left",width:"500px"}}>
-        <div style={{height:"50px"}}><div style={nameStyle}>
-        <div style={{float:"left"}}>{this.props.data.name}</div>
-        <img style={imgStyle} src={this.imgSrc()}></img>
-        </div>
-        </div>
-        <div>{this.createTag()}</div>
-        <div style={timeStyle}>{this.props.data.startTime + "-" + this.props.data.endTime}</div></div>
-        <div style={{float:"left"}}><div style={moveInstructionStyle} onMouseDown={this.mouseDown}></div>
-        <div style={moveInstructionStyle} id="addtask"></div></div>
-        <div style={noteStyle}>{this.props.data.note}</div>
-        </div> <
-            div style = {
-                this.state.move ? this.inTheLine() : null
-            } > < /div>  < /
-            div > )
+        var leftBorderStyle = {
+            float: "left",
+            width: "500px",
+            borderLeft: this.props.data.type == "task" ? "3px solid rgb(172, 186, 215)" : "3px solid rgb(178, 172, 172)",
+            paddingLeft: "20px"
+        }
+        var moveInstructionTopStyle = {
+            width: "40px",
+            height: "40px",
+            backgroundColor: this.props.data.type == "task" ? "rgb(184, 193, 211)" : "rgb(202, 198, 198)"
+        }
+        var moveInstructionBottomStyle = {
+            width: "40px",
+            height: "40px",
+            backgroundColor: this.props.data.type == "task" ? "rgb(198, 208, 227)" : "rgb(217, 212, 212)"
+        }
+        return (<div style={{margin:"5px 0 5px 0"}}>
+                <label className="demo--label"><input className="demo--radio" type="checkbox" name="demo-checkbox1" id={this.props.data.id}/>
+                <span className="demo--checkbox demo--radioInput"></span></label>
+                <div style={this.state.move?this.moveWithMouse():this.inTheLine()} >
+                         <Motion defaultStyle={{x: this.state.deletelineDefault}} style={{x: spring(this.state.deleteline?700:0)}}>
+                                 {({x}) => <div id="deleteline" style={_.extend({width:x},deletelineStyle)}></div>}
+                         </Motion>
+                    <div style={leftBorderStyle} onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
+                        <div style={{height:"50px"}}>
+                        <div style={nameStyle}>
+                        <div style={{float:"left"}}>{this.props.data.name}</div>
+                        <img style={imgStyle} src={this.imgSrc()}/>
+                        </div>
+                        </div>
+                        <div>{this.createTag()}</div>
+                        <div style={timeStyle}>{this.props.data.startTime + "-" + this.props.data.endTime}</div>
+                    </div>
+                    <div style={{float:"left"}}>
+                    <div style={moveInstructionTopStyle} onMouseDown={this.mouseDown}>
+                         <i className="material-icons" style={{margin:"8px 0 0 8px"}}>reorder</i>
+                    </div>
+                    <div style={moveInstructionBottomStyle} id="addtask" onClick={this.mouseClick}>
+                    <i className="material-icons md-24"style={{margin:"8px 0 0 8px",color:"white"}}>add_circle_outline</i>
+                    </div>
+                    </div>
+                         <Motion defaultStyle={{x: 0.3}} style={{x: spring(this.state.noteVisible?1:0.3)}}>
+                                 {({x}) => <div style={_.extend({opacity:x},noteStyle)}>{this.props.data.note}</div>}
+                         </Motion>
+                </div> 
+                <div style={this.state.move?this.inTheLine():null}></div>
+            </div>)
     }
 });
 
@@ -134,7 +196,6 @@ var nameStyle = {
     fontFamily: "cursive",
     width: "500px",
     color: "#312c2c",
-    borderBottom: "1px solid #2c2c2c",
     marginTop: "12px",
     paddingBottom: "5px",
     fontSize: "23px"
@@ -153,11 +214,6 @@ var timeStyle = {
     fontStyle: "italic",
     margin: "5px 5px 0 0"
 }
-var moveInstructionStyle = {
-    width: "40px",
-    height: "40px",
-    backgroundColor: "#acbad7"
-}
 var tagStyle = {
     height: "20px",
     lineHeight: "15px",
@@ -166,6 +222,12 @@ var tagStyle = {
     float: "left",
     textAlign: "center",
     textIndent: "0",
-    marginTop: "5px",
+    margin: "5px 0 5px 0",
     color: "#72c964"
 };
+var deletelineStyle = {
+    zIndex: "4",
+    height: "20px",
+    boderBottom: "3px solid black",
+    marginTop: "40px"
+}

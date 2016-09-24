@@ -41,11 +41,13 @@ export var SlideToggle = React.createClass({
             }
         }
     },
+    componentDidUpdate: function(prveprops, prevstate) {
+        if (prevstate.leftClickDown != this.state.leftClickDown) {
+            var trueButton = this.state.leftClickDown ? "left" : "right"
+            this.props.returnValue("type", trueButton)
+        }
+    },
     render: function() {
-        var text = {
-            left: "ONETASK",
-            right: "PROJECT"
-        };
         var dataL = {
             clickDown: this.state.leftClickDown,
             text: text.left,
@@ -59,10 +61,15 @@ export var SlideToggle = React.createClass({
             onClick: this.clickRight,
             img: "./statics/img/d.png",
             imgLeft: "10%"
-        };
+        }
         return (<div style={{position:"relative"}}>
                     <SlideButton data={dataL}/> 
                     <SlideButton data={dataR}/> 
                 </div>);
     }
 });
+
+var text = {
+    left: "ONETASK",
+    right: "PROJECT"
+};
