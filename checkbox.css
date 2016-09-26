@@ -2,7 +2,8 @@
     margin: 20px 20px 0 0;
     display: inline-block;
     position: absolute;
-    left: -5%
+    left: -5%;
+    padding-top: 10px
 }
 
 .demo--radio {
@@ -35,4 +36,44 @@
 .demo--checkbox.demo--radioInput,
 .demo--radio:checked+.demo--checkbox.demo--radioInput:after {
     border-radius: 0
+}
+
+.btn-2a {
+    border-radius: 0 0 5px 5px;
+}
+
+.btn-2a:hover {
+    top: 2px;
+}
+
+.btn-2a:active {
+    box-shadow: 0 0 #ab3c3c;
+    top: 6px;
+}
+
+.btn-2 {
+    background: #cb4e4e;
+    color: #fff;
+    box-shadow: 0 6px #ab3c3c;
+    -webkit-transition: none;
+    -moz-transition: none;
+    transition: none;
+}
+
+.btn {
+    border: none;
+    font-size: inherit;
+    cursor: pointer;
+    padding: 20px 80px;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    outline: none;
+    position: relative;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    z-index: 12;
+    margin: 5px 0 0 60%
 }

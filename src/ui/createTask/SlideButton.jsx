@@ -1,37 +1,47 @@
 import React from "react";
 
 export var SlideButton = React.createClass({
+    getInitialState: function() {
+        return {
+            over: false
+        }
+    },
+    mouseOver: function() {
+        this.setState({
+            over: true
+        })
+    },
+    mouseOut: function() {
+        this.setState({
+            over: false
+        })
+    },
     render: function() {
-        var imgStyle = {
-            width: "22px",
-            height: "22px",
-            marginRight: "2%",
-            position: "absolute",
-            left: this.props.data.imgLeft,
-            top: "13px"
+        let position = this.props.data.position
+        let icon = position == "left" ? "insert_drive_file" : "style"
+        var slideStyle = {
+            fontFamily: "Lato,Arial,serif",
+            float: "left",
+            fontWeight: "bold",
+            letterSpacing: "1px",
+            width: "45%",
+            paddingTop: "16px",
+            paddingBottom: "16px",
+            paddingLeft: "5%",
+            textAlign: "center",
+            lineHeight: "20px",
+            backgroundColor: this.props.data.clickDown ? "#4a5374" : this.state.over ? "#535c70" : "#8a98b8",
+            color: this.props.data.clickDown ? "#8a98b8" : "#fbfcfd"
         };
-        var clickStyle = this.props.data.clickDown ? clicked : unClick;
-        return <div><img src={this.props.data.img}style={imgStyle}></img><div style={_.extend(slideStyle,clickStyle)} onClick={this.props.data.onClick}>{this.props.data.text}</div></div>
+        var iconStyle = {
+            position: "absolute",
+            left: position == "left" ? "30px" : "240px",
+            color: "inherit",
+            fontSize: "20px"
+        }
+
+        return <div style={slideStyle} onClick={this.props.data.onClick} onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
+        <i className="material-icons" style={iconStyle}>{icon}</i>
+        {this.props.data.text}</div>
     }
 });
-
-var slideStyle = {
-    fontSize: "15px",
-    fontFamily: "Lato,Arial,serif",
-    float: "left",
-    fontWeight: "bold",
-    letterSpacing: "1px",
-    width: "45%",
-    paddingTop: "17px",
-    paddingBottom: "18px",
-    paddingLeft: "5%",
-    textAlign: "center",
-};
-var unClick = {
-    backgroundColor: "#8a98b8",
-    color: "#fbfcfd",
-};
-var clicked = {
-    backgroundColor: "#4a5374",
-    color: "#8a98b8",
-};

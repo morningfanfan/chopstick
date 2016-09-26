@@ -9,13 +9,12 @@ import {
 import {
     Add
 } from "./TodoDisplay/add";
+import {
+    DeleteForm
+} from "./TodoDisplay/deletedDisplay";
 
-var live = {
-    icon: "face",
-    words: "TO DO LIST",
-    status: "live"
-}
 
 ReactDOM.render((<Container/>), document.getElementById("content"));
-ReactDOM.render(<Form data={live}/>, document.getElementById("tasks"));
+ReactDOM.render(<Form/>, document.getElementById("tasks"));
 ReactDOM.render(<Add/>, document.getElementById("add"));
+ReactDOM.render(<DeleteForm/>, document.getElementById("deleteTask"));

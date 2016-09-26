@@ -4,40 +4,20 @@ import {
 } from "./TimeChooseBox";
 
 export var Time = React.createClass({
-    getInitialState: function() {
-        return {
-            openTop: false,
-            openBottom: false
-        }
-    },
-    open: function(e) {
-        if (e == "top") {
-            this.setState({
-                openTop: true,
-                openBottom: false
-            })
-        }
-        if (e == "bottom") {
-            this.setState({
-                openTop: false,
-                openBottom: true
-            })
-        }
-    },
     render: function() {
 
         return (<div><div style={timeFirstStyle}>2</div>
         <div style={positionBox}>
         <div style={_.extend(line1Style,lineStyle)}></div><div style={_.extend(line2Style,lineStyle)}></div>
         <div style={_.extend(timeSecondStyle,startTimeStyle)}>
-        <img style={img1Style} src="./statics/img/time.png"></img>from
-        <img style={imgdown1Style} onClick={this.open.bind(this,"top")} src="./statics/img/down.png"></img>
-        <TimeChooseBox returnValue={this.props.returnValue}/>
+        <i style={img1Style} className="material-icons">access_time</i>
+        from
+        <TimeChooseBox id={data.id1} returnValue={this.props.returnValue}/>
         </div>
         <div style={_.extend(timeSecondStyle,endTimeStyle)}>
-        <img style={img2Style} src="./statics/img/time.png"></img>to
-        <img style={imgdown2Style} onClick={this.open.bind(this,"bottom")} src="./statics/img/down.png"></img>
-        <TimeChooseBox returnValue={this.props.returnValue}/>
+        <i style={img2Style} className="material-icons">access_time</i>
+        to
+        <TimeChooseBox id={data.id2} returnValue={this.props.returnValue}/>
         </div>
         </div>
         </div>)
@@ -93,17 +73,13 @@ var endTimeStyle = {
 };
 var img1Style = {
     position: "absolute",
-    top: "23px",
-    left: "80px",
-    width: "19px",
-    height: "19px"
+    top: "19px",
+    left: "40px",
 };
 var img2Style = {
     position: "absolute",
-    top: "77px",
-    left: "80px",
-    width: "19px",
-    height: "19px"
+    top: "74px",
+    left: "40px",
 };
 var img3Style = {
     position: "absolute",
@@ -112,29 +88,7 @@ var img3Style = {
     width: "19px",
     height: "19px"
 };
-var imgdown1Style = {
-    position: "absolute",
-    top: "23px",
-    left: "390px",
-    width: "15px",
-    height: "15px",
-    visibility: "hiddden"
-};
-var imgdown2Style = {
-    position: "absolute",
-    top: "77px",
-    left: "390px",
-    width: "15px",
-    height: "15px",
-    visibility: "hidden"
-};
-var imgdown3Style = {
-    position: "absolute",
-    top: "151px",
-    left: "390px",
-    width: "15px",
-    height: "15px"
-};
+
 var lineStyle = {
     position: "absolute",
     borderColor: "#e2e7ec",
@@ -150,3 +104,7 @@ var line2Style = {
     top: "35px",
     height: "55px"
 };
+var data = {
+    id1: "start",
+    id2: "end"
+}

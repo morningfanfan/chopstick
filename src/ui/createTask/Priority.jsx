@@ -7,10 +7,7 @@ import {
 export var Priority = React.createClass({
     getInitialState: function() {
         return {
-            click: false,
-            opacity1: "0.3",
-            opacity2: "0.3",
-            opacity3: "0.3"
+            click: false
         }
     },
     handleClick: function(q) {
@@ -49,6 +46,17 @@ export var Priority = React.createClass({
             })
         }
     },
+    componentDidUpdate: function(prevprops, prevstate) {
+        if (!prevprops.shouldClearTag && this.props.shouldClearTag) {
+            this.setState({
+                click: false,
+                open1: false,
+                open2: false,
+                open3: false
+            })
+        }
+    },
+
     render: function() {
 
         return (<div style={priorityFirstStyle}>

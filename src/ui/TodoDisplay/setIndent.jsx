@@ -132,7 +132,8 @@ export var Form = React.createClass({
             offsetIndent: 0,
             onCreate: false,
             arrivingData: null,
-            beClick: 0
+            beClick: 0,
+            //doneToDoList: $.cookie('doneTask')
         }
     },
     findChidrenById: function(id) {
@@ -195,33 +196,40 @@ export var Form = React.createClass({
     },
     a: function(e, X) {
         var index = this.findChidrenWhoIsMoving()
-        var n = parseInt((X + (i / oneMove)) / i)
-        var max = this.state.toDoList[index - 1].indent / i - this.state.toDoList[index].indent / i + 1 //meikaolvshouwei
-        max > 0 ? (max >= n ?
+        if (index != 0) {
+            var n = parseInt(X / i)
+            console.log(n)
+            var max = this.state.toDoList[index - 1].indent / i - this.state.movingXIndent / i + 1
+            max > 0 ? (max >= n ?
+                    this.setState({
+                        offsetIndent: n * i
+                    }) :
+                    this.setState({
+                        offsetIndent: max * i
+                    })) :
                 this.setState({
-                    offsetIndent: n * i
-                }) :
-                this.setState({
-                    offsetIndent: max * i
-                })) :
-            this.setState({
-                offsetIndent: 0
-            })
+                    offsetIndent: 0
+                })
+        }
     },
     b: function(X) {
         var index = this.findChidrenWhoIsMoving()
-        var n = Math.abs(parseInt((X - (i / oneMove)) / i))
-        var max = this.state.toDoList[index].indent / i
-        max > 0 ? (max >= n ?
+
+        if (index != 0) {
+            var n = Math.abs(parseInt(X / i))
+            console.log("b" + n)
+            var max = this.state.movingXIndent / i
+            max > 0 ? (max >= n ?
+                    this.setState({
+                        offsetIndent: -n * i
+                    }) :
+                    this.setState({
+                        offsetIndent: -max * i
+                    })) :
                 this.setState({
-                    offsetIndent: -n * i
-                }) :
-                this.setState({
-                    offsetIndent: -max * i
-                })) :
-            this.setState({
-                offsetIndent: 0
-            })
+                    offsetIndent: 0
+                })
+        }
     },
     c: function(X) {
         this.setState({
@@ -257,6 +265,11 @@ export var Form = React.createClass({
         if (!prevstate.arrivingData && this.state.arrivingData) {
             this.resort()
         }
+        if (prevstate.doneToDoList != this.state.doneToDoList) {
+            //$.cookie('doneTask', this.state.doneToDoList, {
+            //     expires: 365
+            //   });
+        }
     },
     componentWillMount: function() {
         PubSub.subscribe("done!", function(msg, data) {
@@ -272,9 +285,8 @@ export var Form = React.createClass({
             try {
                 PubSub.publish("hello!");
                 this.setState({
-                    beClick: this.state.toDoList.length - 1
+                    beClick: -1
                 })
-                console.log(this.state.toDoList.length - 1)
             } catch (e) {
                 console.log(e)
             }
@@ -302,6 +314,11 @@ export var Form = React.createClass({
         var newData = update(newData, {
             click: {
                 $set: true
+            }
+        })
+        var newData = update(newData, {
+            movingXIndent: {
+                $set: this.state.toDoList[index].indent
             }
         })
         this.setState(newData)
@@ -370,26 +387,63 @@ export var Form = React.createClass({
             beClick: index
         })
     },
+    deleteme: function(id) {
+        var index = this.findChidrenById(id)
+        if (index != undefined) {
+            var beDeleted = this.state.toDoList[index]
+            var doneDeleteIndexElem = this.state.toDoList
+            if (this.state.toDoList[index].type == "project") {
+                var x = this.howManyBelongsToThisProject(index)
+                doneDeleteIndexElem.splice(index, x)
+                this.setState({
+                    toDoList: this.sortIndex(doneDeleteIndexElem),
+                    //doneToDoList: this.state.doneToDoList.push(beDeleted)
+                })
+            } else {
+                doneDeleteIndexElem.splice(index, 1)
+                this.setState({
+                    toDoList: this.sortIndex(doneDeleteIndexElem),
+                    //doneToDoList: this.state.doneToDoList.push(beDeleted)
+                })
+            }
+
+        }
+    },
+    howManyBelongsToThisProject: function(index) {
+        var count = 1
+        for (var i = 1; i < this.state.toDoList.length - index; i++) {
+            if (this.state.toDoList[index + i].indent > this.state.toDoList[index].indent) {
+                console.log("kek")
+                count++
+            } else break
+        }
+        return count
+    },
+    sortIndex: function(arr) {
+        var changeArr = arr
+        for (var i = 0; i < arr.length; i++) {
+            changeArr[i].index = i;
+        }
+        return changeArr
+    },
     resort: function() {
         var data = this.state.arrivingData
-        data.id = this.state.toDoList.length + 10;
+        data.id = this.state.toDoList.length + 10; //random?
         data.move = false;
-        data.indent = this.state.toDoList[this.state.beClick].indent + i;
-        data.index = this.state.beClick + 1
+        data.indent = this.state.beClick == -1 ? 40 : this.state.toDoList[this.state.beClick].indent + i;
         var tmp = this.state.toDoList
-
-        tmp.splice(this.state.beClick + 1, 0, data)
-
-        for (let i = this.state.beClick; i < tmp.length - 2; i++) {
-            tmp[i + 2].index = tmp[i + 2].index + 1
-        }
+        if (this.state.beClick == -1)
+            tmp.splice(this.state.toDoList.length, 0, data)
+        else
+            tmp.splice(this.state.beClick + 1, 0, data)
+        var final = this.sortIndex(tmp)
         this.setState({
-            toDoList: tmp,
+            toDoList: final,
             arrivingData: false
         })
     },
     eachElement: function(it) {
-        return <TodoElement key={it.id} itState={this.state.itState} data={it} changeFatherMoveState={this.changeFatherMoveState} callbackParent={this.callbackParent} status={this.props.data.status}/>
+        return <TodoElement key={it.id} itState={this.state.itState} data={it} deleteme={this.deleteme}changeFatherMoveState={this.changeFatherMoveState} callbackParent={this.callbackParent}/>
     },
     render: function() {
         var shelterStyle = {
@@ -399,7 +453,7 @@ export var Form = React.createClass({
         }
         return <div>
         <div style={taskDisplayStyle} onMouseMove={this.mouseMove} onMouseUp={this.mouseUp}>
-        <div style={boderStyle}><i className="material-icons" style={{marginRight:"5px"}}>{this.props.data.icon}</i>{this.props.data.words}
+        <div style={boderStyle}><i className="material-icons" style={{marginRight:"5px"}}>face</i>TODOLIST
         </div>
         {this.state.toDoList.map(this.eachElement)}</div>
         <div style={shelterStyle}></div>

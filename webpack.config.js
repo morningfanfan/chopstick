@@ -41,5 +41,6 @@ module.exports = {
         //  on the global var jQuery
         "jquery": "$",
         "lodash": "_",
+        "rome": "rome"
     }
 };

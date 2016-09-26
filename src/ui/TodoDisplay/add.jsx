@@ -7,16 +7,17 @@ export var Add = React.createClass({
     },
     render: function() {
         return <div style={addStyleDiv}>
-                    <div onClick={this.createATask} style={addStyle}></div>
+                    <button onClick={this.createATask}  className="btn btn-2 btn-2a">+ ONE
+                    </button>
                     </div>
     }
 })
 var addStyleDiv = {
-    backgroundColor: "black",
+    backgroundColor: "#d7d5d5",
     height: "80px",
     width: "100%",
     position: "fixed",
-    zIndex: "1"
+    zIndex: "7"
 }
 var addStyle = {
     backgroundColor: "red",

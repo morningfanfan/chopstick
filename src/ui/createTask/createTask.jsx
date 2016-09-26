@@ -68,7 +68,8 @@ export var Container = React.createClass({
     },
     closeCreateWindow: function() {
         document.getElementById("inputForName").value = ""
-            ///add other input
+        document.getElementById("inputForTag").value = ""
+        document.getElementById("inputForNote").value = ""
         if (this.state.name) {
             PubSub.publish("done!", {
                 name: this.state.name,
@@ -111,14 +112,14 @@ export var Container = React.createClass({
             top: "15%",
             left: x >= 600 ? (x - 600) / 2 + "px" : "0px",
             backgroundColor: "white",
-            zIndex: "3",
+            zIndex: "10",
             visibility: this.state.visibility
         };
         return (<div style={wholeStyle}>
         <div style={smallStyle}>
         <div style={padding}>
         <div style={smallerStyle}>
-        <SlideToggle returnValue={this.returnValue}/>
+        <SlideToggle returnValue={this.returnValue} shouldClearTag={this.state.shouldClearTag}/>
         </div></div></div>
         <SlidePage returnValue={this.returnValue} closeCreateWindow={this.closeCreateWindow} shouldClearTag={this.state.shouldClearTag} clearTagDone={this.clearTagDone}/>
         </div>)

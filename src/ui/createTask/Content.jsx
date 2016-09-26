@@ -124,11 +124,12 @@ export var Content = React.createClass({
                 <div style={_.extend(informationInnerLeftStyle,numberStyle)}>1</div>
                 <div style={informationInnerRightStyle}>
                     <div style={_.extend(informationInnerTopStyle,textStyle)}>
-                        <img style={imgStyle} src="./statics/img/nn.png"/>name
+                        <i style={imgStyle} className="material-icons">assignment</i>
+                        name
                         <input id="inputForName" type="text" autoFocus style={inputStyle1} ref="name" onBlur={this.returnValue.bind(this,"name")}/>
                     </div>
                     <div style={_.extend(informationInnerBottomStyle,textStyle)}>
-                        <img style={imgStyle} src="./statics/img/tt.png"/>
+                        <i style={imgStyle} className="material-icons">local_offer</i>
                         <div style={{position:"absolute"}}>tags</div>
                         <div style={{position:"absolute",left:"90px"}}>
                         {elems} 
@@ -182,9 +183,7 @@ var informationInnerBottomStyle = {
 var imgStyle = {
     position: "absolute",
     top: "18px",
-    left: "10px",
-    width: "22px",
-    height: "22px"
+    left: "-30px"
 };
 var textStyle = {
     fontSize: "15px",

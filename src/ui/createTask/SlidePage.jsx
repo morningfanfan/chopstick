@@ -60,22 +60,12 @@ export var SlidePage = React.createClass({
         }
     },
     render: function() {
-        var data = {
-            word: "OR ADD SOME NOTE",
-            imgSrc: "./statics/img/yes.png",
-            slideTo: "note",
-            ifSubmitHover: "#42a39b",
-            ifSubmitNotHover: "rgb(54,135,128)",
-            ifNoteHover: "rgb(2,228,209)",
-            ifNoteNotHover: "#00d4c3",
-            clickLeftButton: "submit",
-            clickRightButton: "slide"
-        }
+
         return <Motion defaultStyle={{x: 0}} style={{x: spring(this.state.slideLeft ? 600 : 0)}}>
         {({x}) =><div><div style={{left:x,position:"relative"}}>
                         <Content returnValue={this.props.returnValue} shouldClearTag={this.props.shouldClearTag} clearTagDone={this.props.clearTagDone}/>
                         <Time returnValue={this.props.returnValue}/>
-                        <Priority returnValue={this.props.returnValue}/>
+                        <Priority returnValue={this.props.returnValue} shouldClearTag={this.props.shouldClearTag}/>
                         <Next callbackParent={this.callbackParent} data={data} returnValue={this.props.returnValue}/>
                         </div><div style={{left:x-600,bottom:"480px",position:"relative"}}>
                         <Note callbackParent={this.callbackParent} returnValue={this.props.returnValue}/>
@@ -86,3 +76,15 @@ export var SlidePage = React.createClass({
         </Motion>
     }
 });
+var data = {
+    word: "OR ADD SOME NOTE",
+    imgSrc1: "check",
+    imgSrc2: "broken_image",
+    slideTo: "note",
+    ifSubmitHover: "#42a39b",
+    ifSubmitNotHover: "rgb(54,135,128)",
+    ifNoteHover: "rgb(2,228,209)",
+    ifNoteNotHover: "#00d4c3",
+    clickLeftButton: "submit",
+    clickRightButton: "slide"
+}

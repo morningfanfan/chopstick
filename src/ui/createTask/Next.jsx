@@ -57,26 +57,33 @@ export var Next = React.createClass({
             width: "70px",
             height: "70px",
             backgroundColor: this.state.submitHover ? this.props.data.ifSubmitHover : this.props.data.ifSubmitNotHover,
-            float: "left"
+            float: "left",
+            color: "white"
+        };
+        var imgStyle = {
+            position: "absolute",
+            right: this.props.data.word == "SUBMIT" ? "165px" : "90px",
+            top: "22px"
         };
 
 
         return <div>
-        <div style={submitStyle} onClick={this.handleClick.bind(this,this.props.data.clickLeftButton)} onMouseOver={this.changeColor2.bind(this,1)} onMouseOut={this.changeColor2.bind(this,2)}><img style={submitImgStyle} src={this.props.data.imgSrc}></img></div>
-        <div style={nextStyle} onClick={this.handleClick.bind(this,this.props.data.clickRightButton)} onMouseOver={this.changeColor1.bind(this,1)} onMouseOut={this.changeColor1.bind(this,2)}>{this.props.data.word}
-        <img style={imgStyle} src="./statics/img/arrow.png"></img>
-        </div></div>
+        <div style={submitStyle} onClick={this.handleClick.bind(this,this.props.data.clickLeftButton)} 
+                                 onMouseOver={this.changeColor2.bind(this,1)} 
+                                 onMouseOut={this.changeColor2.bind(this,2)}>
+        <i style={submitImgStyle} className="material-icons">{this.props.data.imgSrc1}</i>
+        </div>
+        <div style={nextStyle} onClick={this.handleClick.bind(this,this.props.data.clickRightButton)} 
+                               onMouseOver={this.changeColor1.bind(this,1)} 
+                               onMouseOut={this.changeColor1.bind(this,2)}>
+                               {this.props.data.word}
+        <i style={imgStyle} className="material-icons">{this.props.data.imgSrc2}</i>
+        </div>
+        </div>
     }
 });
 
-var imgStyle = {
-    position: "relative",
-    left: "20px",
-    width: "15px",
-    height: "14px"
-};
 var submitImgStyle = {
-    margin: "20px",
-    width: "30px",
-    height: "30px"
+    fontSize: "48px",
+    margin: "11px 0 0 11px"
 };
