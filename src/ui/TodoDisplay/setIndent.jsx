@@ -328,26 +328,51 @@ export var Form = React.createClass({
         this.init()
     },
     mouseUp: function() {
-        var newData = update(this.state, {
-            toDoList: {
-                [0]: {
-                    move: {
-                        $set: false
-                    }
-                }
-            }
-        })
-        for (var i = 1; i < this.state.toDoList.length; i++) {
-            var newData = update(newData, {
+        var index = this.findChidrenWhoIsMoving();
+        if (index == 0 || this.state.toDoList[index - 1].type == "task") {
+            var newData = update(this.state, {
                 toDoList: {
-                    [i]: {
-                        move: {
-                            $set: false
+                    [index]: {
+                        indent: {
+                            $set: this.state.toDoList[index - 1].indent
                         }
                     }
                 },
             })
+            for (var i = 0; i < this.state.toDoList.length; i++) {
+                var newData = update(newData, {
+                    toDoList: {
+                        [i]: {
+                            move: {
+                                $set: false
+                            }
+                        }
+                    },
+                })
+            }
+        } else {
+            var newData = update(this.state, {
+                toDoList: {
+                    [0]: {
+                        move: {
+                            $set: false
+                        }
+                    }
+                }
+            })
+            for (var i = 1; i < this.state.toDoList.length; i++) {
+                var newData = update(newData, {
+                    toDoList: {
+                        [i]: {
+                            move: {
+                                $set: false
+                            }
+                        }
+                    },
+                })
+            }
         }
+
         var newData = update(newData, {
             offsetIndent: {
                 $set: 0
