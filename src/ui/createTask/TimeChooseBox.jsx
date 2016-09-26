@@ -5,9 +5,9 @@ export var TimeChooseBox = React.createClass({
         console.log(this.refs[who].value)
     },
     render: function() {
-        rome(this.props.id, {
-            initialValue: '2014-12-08 08:36'
-        });
+        //rome(this.props.id, {
+        //   initialValue: '2014-12-08 08:36'
+        //});
         return <div id={this.props.id} ref="time" onBlur={this.returnValue.bind(this,"time")}>  </div>
     }
 })

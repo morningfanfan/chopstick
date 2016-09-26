@@ -194,11 +194,10 @@ export var Form = React.createClass({
         this.setState(newData)
 
     },
-    a: function(e, X) {
+    a: function(X) {
         var index = this.findChidrenWhoIsMoving()
-        if (index != 0) {
+        if (index != 0 && this.state.toDoList[index - 1].type == "project") {
             var n = parseInt(X / i)
-            console.log(n)
             var max = this.state.toDoList[index - 1].indent / i - this.state.movingXIndent / i + 1
             max > 0 ? (max >= n ?
                     this.setState({
@@ -214,11 +213,9 @@ export var Form = React.createClass({
     },
     b: function(X) {
         var index = this.findChidrenWhoIsMoving()
-
         if (index != 0) {
             var n = Math.abs(parseInt(X / i))
-            console.log("b" + n)
-            var max = this.state.movingXIndent / i
+            var max = this.state.movingXIndent / i - 1 //-1因为默认初始indent=40
             max > 0 ? (max >= n ?
                     this.setState({
                         offsetIndent: -n * i
@@ -255,12 +252,18 @@ export var Form = React.createClass({
     },
     componentDidUpdate: function(prevprops, prevstate) {
         if (prevstate.offsetIndent !== this.state.offsetIndent) {
+            console.log("offset" + this.state.offsetIndent)
             var index = this.findChidrenWhoIsMoving()
-            var toDoList = this.state.toDoList
-            toDoList[index].indent = toDoList[index].indent + this.state.offsetIndent
-            this.setState({
-                toDoList: toDoList
+            var newData = update(this.state, {
+                toDoList: {
+                    [index]: {
+                        indent: {
+                            $set: this.state.movingXIndent + this.state.offsetIndent
+                        }
+                    }
+                },
             })
+            this.setState(newData)
         }
         if (!prevstate.arrivingData && this.state.arrivingData) {
             this.resort()
