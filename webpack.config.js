@@ -1,8 +1,9 @@
 var webpack = require("webpack");
+var path = require('path');
 
 module.exports = {
     entry: {
-        entry1: "./src/ui/index.jsx"
+        entry1: path.join(__dirname, 'src').replace(/^([A-Z]:)/, v => v.toLowerCase()) + "/ui/index.jsx"
     },
     output: {
         filename: "./dist/[name].bundle.js",
