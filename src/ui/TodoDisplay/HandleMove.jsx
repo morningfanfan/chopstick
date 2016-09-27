@@ -9,7 +9,6 @@ import $ from "jquery";
 
 export var TodoElement = React.createClass({
     getInitialState: function() {
-        console.log("init once")
         return {
             move: false,
             init: false,

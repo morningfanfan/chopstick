@@ -80,7 +80,11 @@ export var DoneElement = React.createClass({
             height: "80px",
             backgroundColor: "#e2e2f6",
             zIndex: "4",
-            borderRadius: "10px"
+            borderRadius: "10px",
+            textIndent: "20px",
+            fontFamily: "cursive",
+            wordBreak: 'break-all',
+            wordWrap: 'break-word'
         }
         var leftBorderStyle = {
             float: "left",

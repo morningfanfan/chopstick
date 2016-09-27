@@ -8,118 +8,48 @@ import update from 'react-addons-update';
 import {
     Container
 } from "../createTask/createTask";
-import PubSub from "pubsub-js"
-import UUID from "uuid-js"
+import PubSub from "pubsub-js";
+import UUID from "uuid-js";
+import {
+    dealParentRelationship
+} from "./dealParentRelationship"
+
 var result = [{
-    name: "task1",
+    name: "I am a task",
     type: "task",
-    id: 0,
+    id: UUID.create(),
     index: 0,
     indent: 40,
     move: false,
     priority: 1,
-    startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am",
-    tag: ["xx", "hh", "qqqqq"]
+    startTime: "2016.9.27 7:30pm",
+    endTime: "2016.9.27 8:00pm",
+    tag: ["cute"],
+    note: "I am the basic element of a todo list/can be reordered."
 }, {
-    name: "project1",
+    name: "I am a project",
     type: "project",
-    id: 1,
+    id: UUID.create(),
     index: 1,
     indent: 40,
     move: false,
-    priority: 1,
-    startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am",
-    tag: ["xx", "hh", "qqqqq"]
+    priority: 3,
+    startTime: "2016.9.27 7:30pm",
+    endTime: "2016.9.27 8:00pm",
+    tag: ["love", "noodles"],
+    note: "I am a collection of tasks with similiar goals/can be added more tasks."
 }, {
-    name: "task2",
+    name: "TRY TO MOVE ME",
     type: "task",
-    id: 2,
+    id: UUID.create(),
     index: 2,
     indent: 80,
     move: false,
-    priority: 1,
-    startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am",
-    tag: ["xx", "hh", "qqqqq"]
-}, {
-    name: "project2",
-    type: "project",
-    id: 3,
-    index: 3,
-    indent: 80,
-    move: false,
-    priority: 1,
-    startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am",
-    tag: ["xx", "hh", "qqqqq"]
-}, {
-    name: "task4",
-    type: "task",
-    id: 4,
-    index: 4,
-    indent: 120,
-    move: false,
-    priority: 1,
-    startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am",
-    tag: ["xxxxxx", "hhxxxx", "qqqqxq"]
-}, {
-    name: "task5",
-    type: "task",
-    id: 5,
-    index: 5,
-    indent: 120,
-    move: false,
-    priority: 1,
-    startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am",
-    tag: ["xx", "hh", "qqqqq"]
-}, {
-    name: "task3",
-    type: "task",
-    id: 6,
-    index: 6,
-    indent: 120,
-    move: false,
-    priority: 1,
-    startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am",
-    tag: ["xx", "hh", "qqqqq"]
-}, {
-    name: "project3",
-    type: "project",
-    id: 7,
-    index: 7,
-    indent: 160,
-    move: false,
-    priority: 1,
-    startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am",
-    tag: ["xx", "hh", "qqqqq"]
-}, {
-    name: "project2",
-    type: "project",
-    id: 8,
-    index: 8,
-    indent: 40,
-    move: false,
-    priority: 1,
-    startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am",
-    tag: ["xx", "hh", "qqqqq"]
-}, {
-    name: "task4",
-    type: "task",
-    id: 9,
-    index: 9,
-    indent: 40,
-    move: false,
-    priority: 1,
-    startTime: "2013.6.19 5:30pm",
-    endTime: "2013.11.11 1:00am",
-    tag: ["xx", "hh", "qqqqq"]
+    priority: 2,
+    startTime: "2016.9.27 7:30pm",
+    endTime: "2016.9.27 8:00pm",
+    tag: ["ok"],
+    note: "I belong to the project above/click checkbox to delete me."
 }];
 var i = 40 //indent danwei
 var h = 80 //height danwei
@@ -129,10 +59,11 @@ var oneHeight = 1
 if (!localStorage.getItem('live')) {
     var initToDo = result
 } else
-    var initToDo = localStorage.getItem('live')
+    var initToDo = JSON.parse(localStorage.getItem('live'))
 
 export var Form = React.createClass({
     getInitialState: function() {
+        console.log(initToDo)
         return {
             toDoList: initToDo,
             offsetIndent: 0,
@@ -272,59 +203,6 @@ export var Form = React.createClass({
         )
         return arr
     },
-    dealParentRelationship: function(changeElem) {
-
-        var index = -1
-        var toDoList = this.state.toDoList
-        var tmp = this.state.toDoList
-            //首元素在todolist中有没有爸爸
-            //遍历所有子元素toolist中有没有儿子
-        for (var l = 0; l < toDoList.length; l++) {
-            var a = -1
-            if (toDoList[l].parent.length > 0) {
-                for (var i = 0; i < toDoList[l].parent.length; i++) {
-                    var count = 1
-                    for (var m = 0; m < changeElem.length; m++) {
-                        if (toDoList[l].parent[i] == changeElem[m].id) {
-                            if (toDoList[l].type == "project") {
-                                count = that.howManyBelongsToThisProject(that.findChidrenById(ooDoList[l].id))
-                            }
-                            var indent = changeElem[m].indent - toDoList[l].indent + 40
-                            var deleted = tmp.splice((that.findChidrenById(toDoList[l].id), tmp), count)
-                            deleted = deleted.map(function(elem) {
-                                elem.indent = elem.indent + indent
-                            })
-                            changeElem.splice(that.findChidrenById(changeElem[m].id, changeElem) + 1, 0, deleted)
-                            tmp = this.sortIndex(tmp)
-                            changeElem = this.sortIndex(changeElem)
-                        }
-                    }
-
-                }
-            }
-        }
-
-        if (changeElem[0].parent.length > 0) {
-            for (var i = 0; i < changeElem[0].parent.length; i++) {
-                index = that.findChidrenById(changeElem[0].parent[i])
-                if (index != -1)
-                    break
-            }
-        }
-        if (index != -1) {
-            var indent = tmp[index].indent + 40 - changeElem[0].indent
-            for (var n = 0; n < changeElem.length; n++) {
-                changeElem[n].indent = changeElem[n].indent + indent
-            }
-            tmp = tmp.splice(index + 1, 0, changeElem)
-            tmp = this.sortIndex(tmp)
-        } else {
-            tmp = tmp.splice(tmp.length, 0, changeElem)
-            tmp = this.sortIndex(tmp)
-        }
-        return tmp
-
-    },
     componentDidUpdate: function(prevprops, prevstate) {
         if (prevstate.offsetIndent !== this.state.offsetIndent) {
             var index = this.findChidrenWhoIsMoving()
@@ -341,13 +219,12 @@ export var Form = React.createClass({
         }
         if (!prevstate.arrivingData && this.state.arrivingData)
             this.resort()
-
         if (prevstate.toDoList != this.state.toDoList) {
-            localStorage.setItem('live', this.state.toDoList)
+            var data = JSON.stringify(this.state.toDoList)
+            localStorage.setItem('live', data)
         }
         if (prevstate.timeStamp != this.state.timeStamp) {
             PubSub.publish("delete", this.state.beDeleted);
-            console.log("1")
         }
     },
     componentWillMount: function() {
@@ -372,9 +249,8 @@ export var Form = React.createClass({
         }.bind(this))
         PubSub.subscribe("restore", function(msg, data) {
             try {
-                console.log("2")
                 var changeElem = data
-                var live = this.dealParentRelationship(changeElem)
+                var live = dealParentRelationship(changeElem, this.state.toDoList)
                 this.setState({
                     toDoList: live
                 })
@@ -524,27 +400,19 @@ export var Form = React.createClass({
     },
     deleteme: function(id) {
         var index = this.findChidrenById(id)
-        if (index != undefined) {
+        if (index != -1) {
             var doneDeleteIndexElem = _.cloneDeep(this.state.toDoList)
-            if (this.state.toDoList[index].type == "project") {
-                var x = this.howManyBelongsToThisProject(index)
-                var beDeleted = doneDeleteIndexElem.splice(index, x)
-                beDeleted = this.parentRelationship(beDeleted)
-                this.setState({
-                    toDoList: this.sortIndex(doneDeleteIndexElem),
-                    beDeleted: beDeleted,
-                    timeStamp: UUID.create()
-                })
-            } else {
-                var beDeleted = doneDeleteIndexElem.splice(index, 1)
-                beDeleted = this.parentRelationship(beDeleted)
-                this.setState({
-                    toDoList: this.sortIndex(doneDeleteIndexElem),
-                    beDeleted: beDeleted,
-                    timeStamp: UUID.create()
-                })
-            }
-
+            var x = 1
+            if (this.state.toDoList[index].type == "project")
+                x = this.howManyBelongsToThisProject(index)
+            var beDeleted = doneDeleteIndexElem.splice(index, x)
+            beDeleted = this.parentRelationship(beDeleted)
+            doneDeleteIndexElem = this.sortIndex(doneDeleteIndexElem)
+            this.setState({
+                toDoList: doneDeleteIndexElem,
+                beDeleted: beDeleted,
+                timeStamp: UUID.create()
+            })
         }
     },
     howManyBelongsToThisProject: function(index) {
@@ -565,7 +433,7 @@ export var Form = React.createClass({
     },
     resort: function() {
         var data = this.state.arrivingData
-        data.id = this.state.toDoList.length + 10; //random?
+        data.id = UUID.create();
         data.move = false;
         data.indent = this.state.beClick == -1 ? 40 : this.state.toDoList[this.state.beClick].indent + i;
         var tmp = this.state.toDoList

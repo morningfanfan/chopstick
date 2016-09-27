@@ -41,7 +41,6 @@ module.exports = {
         // require("jquery") is external and available
         //  on the global var jQuery
         "jquery": "$",
-        "lodash": "_",
-        "rome": "rome"
+        "lodash": "_"
     }
 };
