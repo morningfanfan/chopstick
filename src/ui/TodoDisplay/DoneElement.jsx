@@ -5,13 +5,12 @@ import {
     spring
 } from "react-motion";
 import _ from "lodash";
-import $ from "jquery";
 
 export var DoneElement = React.createClass({
     getInitialState: function() {
         return {
             noteVisible: false,
-            deletelineDefault: 700,
+            deletelineDefault: 600,
             deleteline: true,
             checked: true
         }
@@ -96,7 +95,7 @@ export var DoneElement = React.createClass({
                 <label className="demo--label"><input className="demo--radio" type="checkbox" name="demo-checkbox1" onChange={this.changeCheckbox} defaultChecked/>
                 <span className="demo--checkbox demo--radioInput"></span></label>
                 <div style={this.state.move?this.moveWithMouse():this.inTheLine()} >
-                         <Motion defaultStyle={{x: this.state.deletelineDefault}} style={{x: spring(this.state.deleteline?700:0)}}>
+                         <Motion defaultStyle={{x: this.state.deletelineDefault}} style={{x: spring(this.state.deleteline?600:0)}}>
                                  {({x}) => <div style={_.extend({width:x},deletelineStyle)}></div>}
                          </Motion>
                     <div style={leftBorderStyle} onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>

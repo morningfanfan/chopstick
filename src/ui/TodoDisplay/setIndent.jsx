@@ -17,37 +17,37 @@ import {
 var result = [{
     name: "I am a task",
     type: "task",
-    id: UUID.create(),
+    id: UUID.create().toString(),
     index: 0,
     indent: 40,
     move: false,
     priority: 1,
-    startTime: "2016.9.27 7:30pm",
-    endTime: "2016.9.27 8:00pm",
+    startTime: "Wed, Sep 28th 10:00",
+    endTime: "Wed, Sep 28th 10:00",
     tag: ["cute"],
     note: "I am the basic element of a todo list/can be reordered."
 }, {
     name: "I am a project",
     type: "project",
-    id: UUID.create(),
+    id: UUID.create().toString(),
     index: 1,
     indent: 40,
     move: false,
     priority: 3,
-    startTime: "2016.9.27 7:30pm",
-    endTime: "2016.9.27 8:00pm",
+    startTime: "Wed, Sep 28th 10:00",
+    endTime: "Wed, Sep 28th 10:00",
     tag: ["love", "noodles"],
     note: "I am a collection of tasks with similiar goals/can be added more tasks."
 }, {
     name: "TRY TO MOVE ME",
     type: "task",
-    id: UUID.create(),
+    id: UUID.create().toString(),
     index: 2,
     indent: 80,
     move: false,
     priority: 2,
-    startTime: "2016.9.27 7:30pm",
-    endTime: "2016.9.27 8:00pm",
+    startTime: "Wed, Sep 28th 10:00",
+    endTime: "Wed, Sep 28th 10:00",
     tag: ["ok"],
     note: "I belong to the project above/click checkbox to delete me."
 }];
@@ -63,7 +63,6 @@ if (!localStorage.getItem('live')) {
 
 export var Form = React.createClass({
     getInitialState: function() {
-        console.log(initToDo)
         return {
             toDoList: initToDo,
             offsetIndent: 0,
@@ -189,7 +188,6 @@ export var Form = React.createClass({
         }
     },
     parentRelationship: function(arr) {
-        var that = this
         var arr = arr.map(
             function(elem) {
                 var parent = []
@@ -204,6 +202,7 @@ export var Form = React.createClass({
         return arr
     },
     componentDidUpdate: function(prevprops, prevstate) {
+        var that = this
         if (prevstate.offsetIndent !== this.state.offsetIndent) {
             var index = this.findChidrenWhoIsMoving()
             var newData = update(this.state, {
@@ -217,21 +216,22 @@ export var Form = React.createClass({
             })
             this.setState(newData)
         }
-        if (!prevstate.arrivingData && this.state.arrivingData)
-            this.resort()
-        if (prevstate.toDoList != this.state.toDoList) {
+
+        if (prevstate.toDoList !== this.state.toDoList) {
             var data = JSON.stringify(this.state.toDoList)
             localStorage.setItem('live', data)
         }
-        if (prevstate.timeStamp != this.state.timeStamp) {
-            PubSub.publish("delete", this.state.beDeleted);
-        }
+    },
+    componentWillReceiveProps: function(nextprops) {
+        if (nextprops.up != this.props.up)
+            this.mouseUp()
     },
     componentWillMount: function() {
         PubSub.subscribe("done!", function(msg, data) {
             try {
+                var newTodo = this.resort(data)
                 this.setState({
-                    arrivingData: data
+                    toDoList: newTodo
                 })
             } catch (e) {
                 console.log(e)
@@ -299,7 +299,7 @@ export var Form = React.createClass({
                     toDoList: {
                         [index]: {
                             indent: {
-                                $set: this.state.toDoList[index - 1].indent
+                                $set: index == 0 ? 40 : this.state.toDoList[index - 1].indent
                             }
                         }
                     },
@@ -410,9 +410,9 @@ export var Form = React.createClass({
             doneDeleteIndexElem = this.sortIndex(doneDeleteIndexElem)
             this.setState({
                 toDoList: doneDeleteIndexElem,
-                beDeleted: beDeleted,
-                timeStamp: UUID.create()
+                beDeleted: beDeleted
             })
+            PubSub.publish("delete", this.state.beDeleted);
         }
     },
     howManyBelongsToThisProject: function(index) {
@@ -431,38 +431,33 @@ export var Form = React.createClass({
         }
         return changeArr
     },
-    resort: function() {
-        var data = this.state.arrivingData
-        data.id = UUID.create();
+    resort: function(data) {
+        data.id = UUID.create().toString();
         data.move = false;
         data.indent = this.state.beClick == -1 ? 40 : this.state.toDoList[this.state.beClick].indent + i;
-        var tmp = this.state.toDoList
+        var tmp = _.cloneDeep(this.state.toDoList)
         if (this.state.beClick == -1)
             tmp.splice(this.state.toDoList.length, 0, data)
         else
             tmp.splice(this.state.beClick + 1, 0, data)
         var final = this.sortIndex(tmp)
-        this.setState({
-            toDoList: final,
-            arrivingData: false
-        })
+        return final
     },
     eachElement: function(it) {
         return <TodoElement key={it.id} itState={this.state.itState} data={it} deleteme={this.deleteme}changeFatherMoveState={this.changeFatherMoveState} callbackParent={this.callbackParent}/>
     },
     render: function() {
-        var shelterStyle = {
-            backgroundColor: this.state.onCreate ? "#fff" : "none",
-            zIndex: "2",
-            opacity: "0.4"
+        var forMouseUpStyle = {
+            width: "100%",
+            height: 280 + this.state.toDoList.length * 80 + "px"
         }
-        return <div>
-        <div style={taskDisplayStyle} onMouseMove={this.mouseMove} onMouseUp={this.mouseUp}>
+        return <div  draggable="false">
+        <div style={forMouseUpStyle} onMouseMove={this.mouseMove}>
+        <div style={taskDisplayStyle}>
         <div style={boderStyle}><i className="material-icons" style={{marginRight:"5px"}}>face</i>TODOLIST
         </div>
         {this.state.toDoList.map(this.eachElement)}</div>
-        <div style={shelterStyle}></div>
-        </div>
+        </div> </div>
     }
 })
 var taskDisplayStyle = {

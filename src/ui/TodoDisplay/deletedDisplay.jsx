@@ -13,13 +13,13 @@ import {
 var result = [{
     name: "I am a deleted task",
     type: "task",
-    id: UUID.create(),
+    id: UUID.create().toString(),
     index: 0,
     indent: 40,
     move: false,
     priority: 1,
-    startTime: "2016.9.27 7:30pm",
-    endTime: "2016.9.27 8:00pm",
+    startTime: "Wed, Sep 28th 10:00",
+    endTime: "Wed, Sep 28th 10:00",
     tag: ["hello", "world"],
     note: "click checkbox to restore me."
 }];
@@ -39,12 +39,9 @@ export var DeleteForm = React.createClass({
         }
     },
     componentDidUpdate: function(prevstate, prevprops) {
-        if (prevstate.toDoList != this.state.toDoList) {
+        if (prevstate.toDoList !== this.state.toDoList) {
             var data = JSON.stringify(this.state.toDoList)
             localStorage.setItem('dead', data)
-        }
-        if (prevstate.timeStamp != this.state.timeStamp) {
-            PubSub.publish("restore", this.state.beDeleted);
         }
     },
     componentWillMount: function() {
@@ -98,9 +95,9 @@ export var DeleteForm = React.createClass({
             beDeleted = this.parentRelationship(beDeleted, this.state.toDoList)
             this.setState({
                 toDoList: this.sortIndex(doneDeleteIndexElem),
-                beDeleted: beDeleted,
-                timeStamp: UUID.create()
+                beDeleted: beDeleted
             })
+            PubSub.publish("restore", this.state.beDeleted);
         }
     },
     howManyBelongsToThisProject: function(index) {
@@ -134,8 +131,7 @@ export var DeleteForm = React.createClass({
 var taskDisplayStyle = {
     backgroundColor: "#fff",
     position: "relative",
-    left: "200px",
-    top: "250px"
+    left: "200px"
 }
 var boderStyle = {
     width: "200px",

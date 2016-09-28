@@ -5,7 +5,6 @@ import {
     spring
 } from "react-motion";
 import _ from "lodash";
-import $ from "jquery";
 
 export var TodoElement = React.createClass({
     getInitialState: function() {
@@ -132,7 +131,7 @@ export var TodoElement = React.createClass({
         let id = this.props.data.id
         let type = this.props.data.type
         if (this.props.data.startTime != " " || this.props.data.endTime != " ")
-            var time = this.props.data.startTime + "-" + this.props.data.endTime
+            var time = this.props.data.startTime + " - " + this.props.data.endTime
         else
             var time = " "
         var noteStyle = {
@@ -166,11 +165,11 @@ export var TodoElement = React.createClass({
             height: "40px",
             backgroundColor: this.props.data.type == "task" ? "rgb(198, 208, 227)" : "rgb(217, 212, 212)"
         }
-        return (<div style={{margin:"5px 0 5px 0"}}>
-                <label className="demo--label">
+        return (<div style={{margin:"5px 0 5px 0"}} draggable="false">
+                <label className="demo--label"> 
                 <input className="demo--radio" type="checkbox" name="demo-checkbox1" onChange={this.changeCheckbox}/>
                 <span className="demo--checkbox demo--radioInput"></span></label>
-                <div style={this.state.move?this.moveWithMouse():this.inTheLine()} >
+                <div style={this.state.move?this.moveWithMouse():this.inTheLine()} draggable="false">
                          <Motion defaultStyle={{x: this.state.deletelineDefault}} style={{x: spring(this.state.deleteline?700:0)}}>
                                  {({x}) => <div style={_.extend({width:x},deletelineStyle)}></div>}
                          </Motion>
@@ -222,7 +221,8 @@ var timeStyle = {
     float: "right",
     fontFamily: "Arial",
     fontStyle: "italic",
-    margin: "5px 5px 0 0"
+    margin: "5px 5px 0 0",
+    letterSpacing: "-1px"
 }
 var tagStyle = {
     height: "20px",

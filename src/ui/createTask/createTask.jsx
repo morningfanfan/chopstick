@@ -70,6 +70,8 @@ export var Container = React.createClass({
         document.getElementById("inputForName").value = ""
         document.getElementById("inputForTag").value = ""
         document.getElementById("inputForNote").value = ""
+        document.getElementById("startTime").value = ""
+        document.getElementById("endTime").value = ""
         if (this.state.name) {
             PubSub.publish("done!", {
                 name: this.state.name,

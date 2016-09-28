@@ -20,14 +20,13 @@
   },
   "homepage": "https://github.com/morningfanfan/chopstick#readme",
   "dependencies": {
-    "jquery": "^3.1.0",
     "lodash": "^4.14.1",
     "moment": "^2.15.0",
     "react": "^15.3.1",
     "react-addons-update": "^15.3.1",
+    "react-datetime": "^2.6.0",
     "react-dom": "^15.3.0",
     "react-motion": "^0.4.4",
-    "rome": "^2.1.22",
     "uuid-js": "^0.7.5"
   },
   "devDependencies": {

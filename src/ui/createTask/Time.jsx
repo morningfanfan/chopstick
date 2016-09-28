@@ -23,7 +23,6 @@ export var Time = React.createClass({
         </div>)
     }
 });
-
 var timeFirstStyle = {
     width: "419px",
     height: "40px",
@@ -57,7 +56,7 @@ var timeSecondStyle = {
     borderStyle: "solid",
     float: "right",
     fontSize: "15px",
-    fontFamily: "Lato,Arial,serif",
+    fontFamily: "Consolas, monaco, monospace",
     fontWeight: "bold",
     letterSpacing: "1px",
     textAlign: "left",
@@ -105,6 +104,6 @@ var line2Style = {
     height: "55px"
 };
 var data = {
-    id1: "start",
-    id2: "end"
+    id1: "startTime",
+    id2: "endTime"
 }

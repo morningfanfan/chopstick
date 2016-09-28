@@ -1,14 +1,35 @@
 import React from "react";
-import rome from "rome";
+import ReactDOM from "react-dom";
+var Datetime = require('react-datetime');
+import moment from "moment"
 export var TimeChooseBox = React.createClass({
-    returnValue: function(who) {
-        this.props.returnValue(who, this.refs[who].value)
-        console.log(this.refs[who].value)
+    getInitialState: function() {
+        return {
+            show: false
+        }
+    },
+    returnValue: function(selected) {
+        var value = selected.format("ddd,MMM Do,HH:mm")
+        this.props.returnValue(this.props.id, value)
     },
     render: function() {
-        rome(this.props.id, {
-            initialValue: '2014-12-08 08:36'
-        });
-        return <div id={this.props.id} ref="time" onBlur={this.returnValue.bind(this,"time")}>  </div>
+        return <Datetime
+            inputProps={{id:this.props.id}}
+            onBlur={this.returnValue}
+            dateFormat={"ddd, MMM Do"}
+            timeFormat={"HH:mm"}
+            renderDay={ this.renderDay }
+            renderMonth={ this.renderMonth }
+            renderYear={ this.renderYear }
+        />;
+    },
+    renderDay: function(props, currentDate, selectedDate) {
+        return <td {...props}>{ currentDate.date() }</td>;
+    },
+    renderMonth: function(props, month, year, selectedDate) {
+        return <td {...props}>{ month }</td>;
+    },
+    renderYear: function(props, year, selectedDate) {
+        return <td {...props}>{ year % 100 }</td>;
     }
 })
