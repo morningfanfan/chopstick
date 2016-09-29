@@ -110,7 +110,7 @@ export var Container = React.createClass({
             height: "600px",
             overflow: "hidden",
             position: "fixed",
-            top: x >= 600 ? (x - 600) / 2 + "px" : "0px",
+            top: y >= 600 ? (x - 600) / 2 + "px" : "0px",
             left: x >= 600 ? (x - 600) / 2 + "px" : "0px",
             backgroundColor: "white",
             zIndex: "10",
