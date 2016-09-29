@@ -21559,7 +21559,9 @@
 	            priority: 1,
 	            note: " ",
 	            visibility: "hidden",
-	            shouldClearTag: false
+	            shouldClearTag: false,
+	            x: parseInt(window.innerWidth),
+	            y: parseInt(window.innerHeight)
 	        };
 	    },
 	    returnValue: function returnValue(who, value) {
@@ -21641,8 +21643,8 @@
 	        }.bind(this));
 	    },
 	    render: function render() {
-	        var x = parseInt(window.innerWidth);
-	        var y = parseInt(window.innerHeight);
+	        var y = this.state.y;
+	        var x = this.state.x;
 	        var wholeStyle = {
 	            boxShadow: "0 0 20px rgba(74,83,116,0.8)",
 	            width: "600px",
