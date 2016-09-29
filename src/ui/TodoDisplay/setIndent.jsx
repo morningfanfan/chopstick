@@ -39,7 +39,7 @@ var result = [{
     tag: ["love", "noodles"],
     note: "I am a collection of tasks with similiar goals/can be added more tasks."
 }, {
-    name: "TRY TO MOVE ME",
+    name: "CLICK REORDER SYMBOL TO MOVE ME",
     type: "task",
     id: UUID.create().toString(),
     index: 2,

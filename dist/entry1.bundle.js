@@ -35446,7 +35446,7 @@
 	    tag: ["love", "noodles"],
 	    note: "I am a collection of tasks with similiar goals/can be added more tasks."
 	}, {
-	    name: "TRY TO MOVE ME",
+	    name: "CLICK REORDER SYMBOL TO MOVE ME",
 	    type: "task",
 	    id: _uuidJs2.default.create().toString(),
 	    index: 2,
