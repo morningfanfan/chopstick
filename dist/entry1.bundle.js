@@ -36151,7 +36151,7 @@
 	};
 	var tagStyle = {
 	    height: "20px",
-	    lineHeight: "15px",
+	    lineHeight: "20px",
 	    backgroundColor: "#e1fdbc",
 	    borderRadius: "10px",
 	    float: "left",
