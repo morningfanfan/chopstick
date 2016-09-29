@@ -5,7 +5,6 @@ import {
     spring
 } from "react-motion";
 import _ from "lodash";
-
 export var TodoElement = React.createClass({
     getInitialState: function() {
         return {
@@ -144,10 +143,11 @@ export var TodoElement = React.createClass({
             zIndex: "4",
             borderRadius: "10px",
             textIndent: "20px",
-            fontFamily: "cursive",
+            fontFamily: "comic sans ms",
             wordBreak: 'break-all',
             wordWrap: 'break-word'
         }
+
         var leftBorderStyle = {
             float: "left",
             width: "500px",
@@ -200,15 +200,7 @@ export var TodoElement = React.createClass({
     }
 });
 
-var nameStyle = {
-    float: "left",
-    fontFamily: "cursive",
-    width: "500px",
-    color: "#312c2c",
-    marginTop: "12px",
-    paddingBottom: "5px",
-    fontSize: "23px"
-}
+
 var imgStyle = {
     width: "19px",
     height: "19px",
@@ -219,7 +211,7 @@ var imgStyle = {
 var timeStyle = {
     color: "gray",
     float: "right",
-    fontFamily: "Arial",
+    fontFamily: "Arial,helvetica",
     fontStyle: "italic",
     margin: "5px 5px 0 0",
     letterSpacing: "-1px"
@@ -241,4 +233,13 @@ var deletelineStyle = {
     borderBottom: "1px solid",
     margin: "20px 0 0 -50px",
     position: "absolute"
+}
+var nameStyle = {
+    float: "left",
+    fontFamily: "comic sans ms",
+    width: "500px",
+    color: "#312c2c",
+    marginTop: "12px",
+    paddingBottom: "5px",
+    fontSize: "23px"
 }

@@ -134,7 +134,7 @@ var taskDisplayStyle = {
     left: "200px"
 }
 var boderStyle = {
-    width: "200px",
+    width: "600px",
     height: "30px",
     marginBottom: "50px",
     color: "#d8d4dc",

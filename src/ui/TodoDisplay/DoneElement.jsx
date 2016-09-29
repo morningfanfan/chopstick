@@ -81,7 +81,7 @@ export var DoneElement = React.createClass({
             zIndex: "4",
             borderRadius: "10px",
             textIndent: "20px",
-            fontFamily: "cursive",
+            fontFamily: "comic sans ms",
             wordBreak: 'break-all',
             wordWrap: 'break-word'
         }
@@ -119,7 +119,7 @@ export var DoneElement = React.createClass({
 
 var nameStyle = {
     float: "left",
-    fontFamily: "cursive",
+    fontFamily: "comic sans ms",
     width: "500px",
     color: "#312c2c",
     marginTop: "12px",
@@ -136,14 +136,14 @@ var imgStyle = {
 var timeStyle = {
     color: "gray",
     float: "right",
-    fontFamily: "Arial",
+    fontFamily: "Arial,helvetica",
     fontStyle: "italic",
     margin: "5px 5px 0 0",
     letterSpacing: "-1px"
 }
 var tagStyle = {
     height: "20px",
-    lineHeight: "15px",
+    lineHeight: "20px",
     backgroundColor: "#e1fdbc",
     borderRadius: "10px",
     float: "left",

@@ -35852,7 +35852,7 @@
 	    top: "100px"
 	};
 	var boderStyle = {
-	    width: "200px",
+	    width: "600px",
 	    height: "30px",
 	    marginBottom: "50px",
 	    color: "#dcd4d4",
@@ -36022,10 +36022,11 @@
 	            zIndex: "4",
 	            borderRadius: "10px",
 	            textIndent: "20px",
-	            fontFamily: "cursive",
+	            fontFamily: "comic sans ms",
 	            wordBreak: 'break-all',
 	            wordWrap: 'break-word'
 	        };
+	
 	        var leftBorderStyle = {
 	            float: "left",
 	            width: "500px",
@@ -36131,15 +36132,6 @@
 	    }
 	});
 	
-	var nameStyle = {
-	    float: "left",
-	    fontFamily: "cursive",
-	    width: "500px",
-	    color: "#312c2c",
-	    marginTop: "12px",
-	    paddingBottom: "5px",
-	    fontSize: "23px"
-	};
 	var imgStyle = {
 	    width: "19px",
 	    height: "19px",
@@ -36150,7 +36142,7 @@
 	var timeStyle = {
 	    color: "gray",
 	    float: "right",
-	    fontFamily: "Arial",
+	    fontFamily: "Arial,helvetica",
 	    fontStyle: "italic",
 	    margin: "5px 5px 0 0",
 	    letterSpacing: "-1px"
@@ -36172,6 +36164,15 @@
 	    borderBottom: "1px solid",
 	    margin: "20px 0 0 -50px",
 	    position: "absolute"
+	};
+	var nameStyle = {
+	    float: "left",
+	    fontFamily: "comic sans ms",
+	    width: "500px",
+	    color: "#312c2c",
+	    marginTop: "12px",
+	    paddingBottom: "5px",
+	    fontSize: "23px"
 	};
 
 /***/ },
@@ -36723,7 +36724,7 @@
 	    left: "200px"
 	};
 	var boderStyle = {
-	    width: "200px",
+	    width: "600px",
 	    height: "30px",
 	    marginBottom: "50px",
 	    color: "#d8d4dc",
@@ -36838,7 +36839,7 @@
 	            zIndex: "4",
 	            borderRadius: "10px",
 	            textIndent: "20px",
-	            fontFamily: "cursive",
+	            fontFamily: "comic sans ms",
 	            wordBreak: 'break-all',
 	            wordWrap: 'break-word'
 	        };
@@ -36916,7 +36917,7 @@
 	
 	var nameStyle = {
 	    float: "left",
-	    fontFamily: "cursive",
+	    fontFamily: "comic sans ms",
 	    width: "500px",
 	    color: "#312c2c",
 	    marginTop: "12px",
@@ -36933,14 +36934,14 @@
 	var timeStyle = {
 	    color: "gray",
 	    float: "right",
-	    fontFamily: "Arial",
+	    fontFamily: "Arial,helvetica",
 	    fontStyle: "italic",
 	    margin: "5px 5px 0 0",
 	    letterSpacing: "-1px"
 	};
 	var tagStyle = {
 	    height: "20px",
-	    lineHeight: "15px",
+	    lineHeight: "20px",
 	    backgroundColor: "#e1fdbc",
 	    borderRadius: "10px",
 	    float: "left",
