@@ -102,6 +102,12 @@ export var Container = React.createClass({
                 visibility: "visible"
             })
         }.bind(this))
+        window.onresize = function() {
+            this.setState({
+                x: parseInt(window.innerWidth),
+                y: parseInt(window.innerHeight)
+            })
+        }.bind(this)
     },
     render: function() {
         var y = this.state.y

@@ -21641,6 +21641,12 @@
 	                visibility: "visible"
 	            });
 	        }.bind(this));
+	        window.onresize = function () {
+	            this.setState({
+	                x: parseInt(window.innerWidth),
+	                y: parseInt(window.innerHeight)
+	            });
+	        }.bind(this);
 	    },
 	    render: function render() {
 	        var y = this.state.y;
