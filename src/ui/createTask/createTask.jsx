@@ -102,14 +102,15 @@ export var Container = React.createClass({
         }.bind(this))
     },
     render: function() {
-        var x = screen.availWidth
+        var x = window.innerWidth
+        var y = window.innerHeight
         var wholeStyle = {
             boxShadow: "0 0 20px rgba(74,83,116,0.8)",
             width: "600px",
             height: "600px",
             overflow: "hidden",
             position: "fixed",
-            top: "15%",
+            top: x >= 600 ? (x - 600) / 2 + "px" : "0px",
             left: x >= 600 ? (x - 600) / 2 + "px" : "0px",
             backgroundColor: "white",
             zIndex: "10",
