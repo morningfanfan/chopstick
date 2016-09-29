@@ -64,7 +64,7 @@ export var SlidePage = React.createClass({
         return <Motion defaultStyle={{x: 0}} style={{x: spring(this.state.slideLeft ? 600 : 0)}}>
         {({x}) =><div><div style={{left:x,position:"relative"}}>
                         <Content returnValue={this.props.returnValue} shouldClearTag={this.props.shouldClearTag} clearTagDone={this.props.clearTagDone}/>
-                        <Time returnValue={this.props.returnValue}/>
+                        <Time returnValue={this.props.returnValue} shouldClearTag={this.props.shouldClearTag}/>
                         <Priority returnValue={this.props.returnValue} shouldClearTag={this.props.shouldClearTag}/>
                         <Next callbackParent={this.callbackParent} data={data} returnValue={this.props.returnValue}/>
                         </div><div style={{left:x-600,bottom:"480px",position:"relative"}}>

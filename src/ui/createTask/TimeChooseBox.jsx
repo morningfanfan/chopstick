@@ -5,16 +5,24 @@ import moment from "moment"
 export var TimeChooseBox = React.createClass({
     getInitialState: function() {
         return {
-            show: false
+            date: undefined
         }
     },
     returnValue: function(selected) {
         var value = selected.format("ddd,MMM Do,HH:mm")
         this.props.returnValue(this.props.id, value)
     },
+    componentWillReceiveProps: function(nextprops) {
+        if (!this.props.shouldClearTag && nextprops.shouldClearTag) {
+            this.setState({
+                date: undefined
+            })
+        }
+    },
     render: function() {
         return <Datetime
-            inputProps={{id:this.props.id}}
+            value={this.state.date}
+            onChange={function(date){this.setState({date: date})}.bind(this)}
             onBlur={this.returnValue}
             dateFormat={"ddd, MMM Do"}
             timeFormat={"HH:mm"}

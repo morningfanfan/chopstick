@@ -56,7 +56,6 @@ export var Priority = React.createClass({
             })
         }
     },
-
     render: function() {
 
         return (<div style={priorityFirstStyle}>

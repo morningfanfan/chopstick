@@ -12,12 +12,12 @@ export var Time = React.createClass({
         <div style={_.extend(timeSecondStyle,startTimeStyle)}>
         <i style={img1Style} className="material-icons">access_time</i>
         from
-        <TimeChooseBox id={data.id1} returnValue={this.props.returnValue}/>
+        <TimeChooseBox id={data.id1} returnValue={this.props.returnValue} shouldClearTag={this.props.shouldClearTag}/>
         </div>
         <div style={_.extend(timeSecondStyle,endTimeStyle)}>
         <i style={img2Style} className="material-icons">access_time</i>
         to
-        <TimeChooseBox id={data.id2} returnValue={this.props.returnValue}/>
+        <TimeChooseBox id={data.id2} returnValue={this.props.returnValue} shouldClearTag={this.props.shouldClearTag}/>
         </div>
         </div>
         </div>)
