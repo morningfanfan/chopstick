@@ -138,7 +138,8 @@ var timeStyle = {
     float: "right",
     fontFamily: "Arial",
     fontStyle: "italic",
-    margin: "5px 5px 0 0"
+    margin: "5px 5px 0 0",
+    letterSpacing: "-1px"
 }
 var tagStyle = {
     height: "20px",
