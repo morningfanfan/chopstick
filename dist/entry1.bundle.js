@@ -35540,7 +35540,7 @@
 	    },
 	    a: function a(X) {
 	        var index = this.findChidrenWhoIsMoving();
-	        if (index != 0 && this.state.toDoList[index - 1].type == "project") {
+	        if (index != 0) {
 	            var n = parseInt(X / i);
 	            var max = this.state.toDoList[index - 1].indent / i - this.state.movingXIndent / i + 1;
 	            max > 0 ? max >= n ? this.setState({
@@ -35683,12 +35683,16 @@
 	    },
 	    mouseUp: function mouseUp() {
 	        var index = this.findChidrenWhoIsMoving();
+	        var todo = this.state.toDoList;
 	        if (index != -1) {
-	            if (index == 0 || this.state.toDoList[index - 1].type == "task") {
+	            var flag = 0;
+	            if (index == 0) flag = 1;else if (todo[index - 1].type == "task" && todo[index].indent > todo[index - 1].indent) flag = 2;else if (todo[index + 1] && todo[index].type == "task" && todo[index].indent < todo[index + 1].indent) flag = 3;
+	            console.log(flag);
+	            if (flag != 0) {
 	                var newData = (0, _reactAddonsUpdate2.default)(this.state, {
 	                    toDoList: _defineProperty({}, index, {
 	                        indent: {
-	                            $set: index == 0 ? 40 : this.state.toDoList[index - 1].indent
+	                            $set: flag == 1 ? 40 : flag == 2 ? todo[index - 1].indent : todo[index + 1].indent
 	                        }
 	                    })
 	                });
