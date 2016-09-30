@@ -35604,14 +35604,16 @@
 	        var that = this;
 	        if (prevstate.offsetIndent !== this.state.offsetIndent) {
 	            var index = this.findChidrenWhoIsMoving();
-	            var newData = (0, _reactAddonsUpdate2.default)(this.state, {
-	                toDoList: _defineProperty({}, index, {
-	                    indent: {
-	                        $set: this.state.movingXIndent + this.state.offsetIndent
-	                    }
-	                })
-	            });
-	            this.setState(newData);
+	            if (index != -1) {
+	                var newData = (0, _reactAddonsUpdate2.default)(this.state, {
+	                    toDoList: _defineProperty({}, index, {
+	                        indent: {
+	                            $set: this.state.movingXIndent + this.state.offsetIndent
+	                        }
+	                    })
+	                });
+	                this.setState(newData);
+	            }
 	        }
 	
 	        if (prevstate.toDoList !== this.state.toDoList) {

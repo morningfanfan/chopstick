@@ -205,16 +205,18 @@ export var Form = React.createClass({
         var that = this
         if (prevstate.offsetIndent !== this.state.offsetIndent) {
             var index = this.findChidrenWhoIsMoving()
-            var newData = update(this.state, {
-                toDoList: {
-                    [index]: {
-                        indent: {
-                            $set: this.state.movingXIndent + this.state.offsetIndent
+            if (index != -1) {
+                var newData = update(this.state, {
+                    toDoList: {
+                        [index]: {
+                            indent: {
+                                $set: this.state.movingXIndent + this.state.offsetIndent
+                            }
                         }
-                    }
-                },
-            })
-            this.setState(newData)
+                    },
+                })
+                this.setState(newData)
+            }
         }
 
         if (prevstate.toDoList !== this.state.toDoList) {
